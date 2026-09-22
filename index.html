@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Far Sight Project</title>
+<meta name="description" content="A student project bringing myopia-prevention practice from China to families in the United States.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* ---------- tokens ---------- */
+:root{
+  --ground:#FFFFFF;
+  --ground-2:#F4F6F9;
+  --ground-3:#E9EEF3;
+  --surface:#FFFFFF;
+  --surface-2:#F7F9FB;
+  --ink:#14181C;
+  --ink-2:#454C54;
+  --ink-3:#727A83;
+  --line:#DBE0E6;
+  --line-soft:#EAEEF2;
+  --accent:#0E5FC0;
+  --accent-deep:#0A4691;
+  --accent-tint:#E4EDFA;
+  --on-accent:#FFFFFF;
+  --amber:#B8730C;
+  --amber-tint:#FAEBD4;
+  --radius:4px;
+  --radius-lg:8px;
+  --maxw:1280px;
+  --readw:62ch;
+  --guide-fill:rgba(184,115,12,.09);
+  --guide-line:rgba(184,115,12,.6);
+  --font-display:"Newsreader", Georgia, "Times New Roman", serif;
+  --font-body:"Public Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --shadow:0 1px 2px rgba(20,24,28,.05), 0 14px 34px -20px rgba(20,24,28,.35);
+  --shadow-lift:0 2px 6px rgba(20,24,28,.08), 0 30px 60px -28px rgba(20,24,28,.5);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0B1016;
+    --ground-2:#11181F;
+    --ground-3:#162029;
+    --surface:#121A22;
+    --surface-2:#18222C;
+    --ink:#EDF1F5;
+    --ink-2:#B3BDC7;
+    --ink-3:#828E99;
+    --line:#2A3641;
+    --line-soft:#1F2A34;
+    --accent:#5CA3F5;
+    --accent-deep:#9AC7FF;
+    --accent-tint:#13283F;
+    --on-accent:#05121F;
+    --amber:#E0A94F;
+    --amber-tint:#33280F;
+    --guide-fill:rgba(224,169,79,.12);
+    --guide-line:rgba(224,169,79,.5);
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 16px 38px -20px rgba(0,0,0,.9);
+    --shadow-lift:0 2px 8px rgba(0,0,0,.55), 0 32px 64px -28px rgba(0,0,0,.95);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0B1016;
+  --ground-2:#11181F;
+  --ground-3:#162029;
+  --surface:#121A22;
+  --surface-2:#18222C;
+  --ink:#EDF1F5;
+  --ink-2:#B3BDC7;
+  --ink-3:#828E99;
+  --line:#2A3641;
+  --line-soft:#1F2A34;
+  --accent:#5CA3F5;
+  --accent-deep:#9AC7FF;
+  --accent-tint:#13283F;
+  --on-accent:#05121F;
+  --amber:#E0A94F;
+  --amber-tint:#33280F;
+  --guide-fill:rgba(224,169,79,.12);
+  --guide-line:rgba(224,169,79,.5);
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 16px 38px -20px rgba(0,0,0,.9);
+  --shadow-lift:0 2px 8px rgba(0,0,0,.55), 0 32px 64px -28px rgba(0,0,0,.95);
+}
+
+/* ---------- base ---------- */
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--font-body); font-size:16.5px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-display); font-weight:400; margin:0; line-height:1.14; letter-spacing:-.012em; text-wrap:balance}
+h1{font-size:clamp(2.3rem,5vw,3.6rem)}
+h2{font-size:clamp(1.75rem,3.4vw,2.6rem)}
+h3{font-size:1.3rem; line-height:1.25}
+p{margin:0}
+a{color:inherit}
+img{max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0}
+:focus-visible{outline:2.5px solid var(--accent); outline-offset:3px}
+.wrap{width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:32px}
+@media (max-width:640px){.wrap{padding-inline:20px}}
+.eyebrow{
+  font-family:var(--font-body); font-size:.72rem; font-weight:700;
+  letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin:0;
+}
+.lede{font-size:clamp(1.02rem,1.7vw,1.2rem); color:var(--ink-2); max-width:var(--readw); line-height:1.6}
+.prose{max-width:var(--readw); display:flex; flex-direction:column; gap:1.05rem; color:var(--ink-2)}
+.prose strong{color:var(--ink); font-weight:600}
+.stack{display:flex; flex-direction:column}
+.rule{height:1px; background:var(--line); border:0; margin:0}
+
+/* ---------- header ---------- */
+.site-header{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:70;
+  background:var(--ground); border-bottom:1px solid var(--line-soft);
+}
+.header-in{display:flex; align-items:stretch; gap:26px; min-height:88px}
+.brand{display:flex; align-items:center; gap:12px; text-decoration:none; padding-block:16px; flex:none}
+.brand-mark{width:38px; height:38px; flex:none}
+.brand-text{display:flex; flex-direction:column; line-height:1.05}
+.brand-name{font-family:var(--font-display); font-weight:500; font-size:1.42rem; letter-spacing:-.02em}
+.brand-sub{font-size:.585rem; font-weight:700; letter-spacing:.17em; text-transform:uppercase; color:var(--ink-3); margin-top:5px}
+
+.nav{display:flex; align-items:stretch; gap:6px; margin-left:18px}
+.nav-item{position:relative; display:flex; align-items:stretch}
+.nav-link{
+  display:flex; align-items:center; gap:9px; padding:10px 12px;
+  font-size:.99rem; font-weight:400; color:var(--ink); text-decoration:none; cursor:pointer;
+  border-bottom:3px solid transparent; line-height:1.28;
+}
+.nav-link .chev{width:11px; height:11px; flex:none; opacity:.65; transition:transform .18s ease; align-self:flex-end; margin-bottom:5px}
+.nav-item:hover .chev, .nav-item:focus-within .chev{transform:rotate(180deg)}
+.nav-link:hover{color:var(--accent-deep)}
+.nav-item.is-active .nav-link{border-bottom-color:var(--accent); color:var(--accent-deep)}
+.util{margin-left:auto; display:flex; align-items:center; gap:6px; flex:none}
+.util-link{
+  font-size:.95rem; text-decoration:none; padding:10px 14px; white-space:nowrap;
+  border-bottom:3px solid transparent;
+}
+.util-link:hover{color:var(--accent-deep); border-bottom-color:var(--accent)}
+.icon-btn{
+  width:44px; height:44px; display:grid; place-items:center; cursor:pointer; border-radius:50%;
+}
+.icon-btn:hover{background:var(--ground-2)}
+.icon-btn svg{width:21px; height:21px}
+.dropdown{
+  position:absolute; top:100%; left:-10px; min-width:310px;
+  background:var(--surface); border:1px solid var(--line); border-top:3px solid var(--accent);
+  box-shadow:var(--shadow-lift); padding:10px;
+  opacity:0; visibility:hidden; transform:translateY(-5px);
+  transition:opacity .15s ease, transform .15s ease, visibility .15s;
+}
+.nav-item:hover .dropdown, .nav-item:focus-within .dropdown{opacity:1; visibility:visible; transform:translateY(0)}
+.dropdown a{display:flex; gap:12px; padding:11px 12px; text-decoration:none; align-items:flex-start}
+.dropdown a:hover{background:var(--surface-2)}
+.dd-num{font-size:.68rem; font-weight:700; color:var(--accent); padding-top:4px; font-variant-numeric:tabular-nums}
+.dd-t{font-size:.97rem; font-weight:500}
+.dd-desc{display:block; font-size:.82rem; color:var(--ink-3); line-height:1.45; margin-top:2px; font-weight:400}
+.burger{display:none; width:46px; height:46px; border:1px solid var(--line); border-radius:var(--radius); cursor:pointer; align-items:center; justify-content:center; align-self:center}
+.burger span{display:block; width:18px; height:1.6px; background:var(--ink); box-shadow:0 -6px 0 var(--ink), 0 6px 0 var(--ink)}
+
+@media (max-width:1080px){
+  .nav-link{font-size:.93rem; padding:10px 9px}
+  .util-link{display:none}
+}
+@media (max-width:920px){
+  .header-in{min-height:70px; align-items:center; gap:12px}
+  .brand-mark{width:32px; height:32px}
+  .brand-name{font-size:1.2rem}
+  .burger{display:inline-flex}
+  .util{gap:0}
+  .nav{
+    display:none; position:absolute; left:0; right:0; top:100%; margin:0;
+    flex-direction:column; align-items:stretch; gap:0; background:var(--surface);
+    border-bottom:1px solid var(--line); padding:8px 18px 22px;
+    max-height:74vh; overflow-y:auto; box-shadow:var(--shadow-lift);
+  }
+  .nav.open{display:flex}
+  .nav-item{flex-direction:column; border-bottom:1px solid var(--line-soft)}
+  .nav-link{border-bottom:0; padding:15px 4px; font-size:1.06rem; font-weight:500}
+  .nav-link .chev{display:none}
+  .dropdown{
+    position:static; opacity:1; visibility:visible; transform:none; box-shadow:none;
+    border:0; background:none; padding:0 0 10px 4px; min-width:0;
+  }
+  .dropdown a{padding:9px 10px}
+  .dd-desc{display:none}
+}
+
+/* search */
+.search-panel{
+  border-bottom:1px solid var(--line); background:var(--ground-2);
+  padding-block:18px; display:none;
+}
+.search-panel.open{display:block}
+.search-in{display:flex; gap:12px; align-items:center}
+.search-in input{
+  flex:1; min-width:0; font:inherit; font-size:1.05rem; color:var(--ink);
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:13px 16px;
+}
+.search-results{list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:2px}
+.search-results li a{
+  display:flex; flex-direction:column; gap:2px; padding:10px 12px;
+  text-decoration:none; border-radius:var(--radius);
+}
+.search-results li a:hover{background:var(--surface)}
+.search-results .r-t{font-weight:600; font-size:.98rem}
+.search-results .r-s{font-size:.82rem; color:var(--ink-3)}
+.search-empty{font-size:.9rem; color:var(--ink-3); padding:10px 12px}
+
+/* ---------- hero (mayo-style full bleed) ---------- */
+.hero{position:relative; background:#080D13; color:#F4F7FA; isolation:isolate}
+.hero-media{
+  position:relative; height:clamp(430px,64vh,660px); width:100%; overflow:hidden;
+  background:
+    radial-gradient(120% 90% at 78% 6%, rgba(72,142,226,.30), transparent 62%),
+    linear-gradient(118deg, #060A10 0%, #0A1622 44%, #061019 100%);
+}
+.hero-beam{position:absolute; inset:0; pointer-events:none}
+.hero-beam::before{
+  content:""; position:absolute; left:-12%; top:34%; width:130%; height:130px;
+  background:linear-gradient(90deg, rgba(90,163,245,0) 0%, rgba(120,190,255,.75) 42%, rgba(190,225,255,.95) 58%, rgba(90,163,245,0) 100%);
+  filter:blur(22px); transform:rotate(-13deg);
+}
+.hero-beam::after{
+  content:""; position:absolute; left:-10%; top:38%; width:125%; height:3px;
+  background:linear-gradient(90deg, rgba(190,225,255,0), rgba(225,240,255,.95), rgba(190,225,255,0));
+  filter:blur(1px); transform:rotate(-13deg);
+}
+.hero-slot{
+  position:absolute; inset:16px; border:1.5px dashed rgba(220,235,255,.3); border-radius:var(--radius);
+  pointer-events:none;
+}
+.hero-slot p{
+  position:absolute; top:18px; left:20px; max-width:min(38ch,58%);
+  font-size:.8rem; color:rgba(226,238,250,.7); line-height:1.5;
+}
+.hero-slot .t{
+  font-weight:700; font-size:.68rem; letter-spacing:.15em; text-transform:uppercase;
+  color:rgba(226,238,250,.88); margin-bottom:5px; display:block;
+}
+@media (max-width:640px){
+  .hero-slot p{font-size:.72rem; max-width:62%; top:14px; left:14px}
+}
+.hero-play{
+  position:absolute; top:34px; right:34px; width:62px; height:62px; border-radius:50%;
+  border:1.5px solid rgba(233,243,255,.8); display:grid; place-items:center; cursor:pointer;
+  background:rgba(8,14,20,.36); color:#EAF2FB; transition:background .18s ease, transform .18s ease;
+}
+.hero-play:hover{background:rgba(233,243,255,.16); transform:scale(1.04)}
+.hero-play svg{width:22px; height:22px; margin-left:4px}
+@media (max-width:640px){.hero-play{top:18px; right:18px; width:50px; height:50px}}
+.hero-overlay{
+  position:absolute; left:0; right:0; bottom:0; padding-bottom:clamp(38px,7vh,88px);
+  display:flex; flex-direction:column; gap:26px; align-items:flex-start;
+  background:linear-gradient(to top, rgba(4,8,12,.72) 0%, rgba(4,8,12,.42) 45%, transparent 100%);
+  padding-top:90px;
+}
+.hero-overlay h1{
+  font-size:clamp(2.4rem,6.4vw,4.6rem); font-weight:300; color:#FFFFFF;
+  letter-spacing:-.018em; line-height:1.05; max-width:16ch;
+}
+.hero-actions{display:flex; flex-wrap:wrap; align-items:center; gap:14px 30px}
+.link-arrow{
+  display:inline-flex; align-items:center; gap:9px; text-decoration:none;
+  font-size:1.02rem; color:#EAF2FB; padding-block:4px;
+}
+.link-arrow svg{width:13px; height:13px; transition:transform .18s ease}
+.link-arrow:hover svg{transform:translateX(4px)}
+.link-arrow:hover{text-decoration:underline; text-underline-offset:5px}
+.btn-outline-light{
+  display:inline-flex; align-items:center; gap:9px; border:1.4px solid #EAF2FB; color:#FFFFFF;
+  border-radius:999px; padding:15px 32px; text-decoration:none; font-size:1.02rem; font-weight:500;
+  transition:background .18s ease, color .18s ease;
+}
+.btn-outline-light:hover{background:#FFFFFF; color:#0B1117}
+
+/* ---------- buttons / links ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:9px; border-radius:999px; text-decoration:none;
+  font-size:.97rem; font-weight:500; padding:13px 27px; border:1.4px solid transparent; cursor:pointer;
+  transition:background .16s ease, color .16s ease, border-color .16s ease;
+}
+.btn svg{width:16px; height:16px; flex:none}
+.btn-primary{background:var(--accent); color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-deep); color:var(--on-accent)}
+.btn-ghost{border-color:var(--ink); color:var(--ink)}
+.btn-ghost:hover{background:var(--ink); color:var(--ground)}
+.arrow-link{
+  display:inline-flex; align-items:center; gap:8px; color:var(--accent-deep);
+  font-weight:600; font-size:.94rem; text-decoration:none;
+}
+.arrow-link svg{width:12px; height:12px; transition:transform .16s ease}
+.arrow-link:hover svg{transform:translateX(4px)}
+.arrow-link:hover{text-decoration:underline; text-underline-offset:4px}
+
+/* ---------- bands & sections ---------- */
+.band{padding-block:clamp(52px,7vw,88px)}
+.band-tint{background:var(--ground-2)}
+.band-dark{
+  --surface:#141C24; --surface-2:#18222C; --ink:#F2F5F8; --ink-2:#C4CDD6; --ink-3:#95A2AD;
+  --line:#2D3945; --line-soft:#232E38; --accent:#6FB0F7; --accent-deep:#A3CCFF;
+  --accent-tint:#16283A; --on-accent:#06121E;
+  background:#0B1117; color:var(--ink);
+}
+.sec-head{display:flex; flex-direction:column; gap:14px; margin-bottom:38px; max-width:70ch}
+.sec-head h2{max-width:22ch}
+.split{display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,64px); align-items:center}
+@media (max-width:860px){.split{grid-template-columns:minmax(0,1fr)}}
+.grid{display:grid; gap:28px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:980px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.g2,.g3,.g4{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- page / part scaffolding ---------- */
+.page[hidden]{display:none!important}
+.page-head{padding-block:clamp(44px,6vw,76px) 34px; border-bottom:1px solid var(--line-soft)}
+.page-head .wrap{display:flex; flex-direction:column; gap:16px}
+.subnav{
+  position:sticky; top:calc(env(safe-area-inset-top,0px) + 88px); z-index:50;
+  background:var(--ground); border-bottom:1px solid var(--line);
+}
+@media (max-width:920px){.subnav{top:calc(env(safe-area-inset-top,0px) + 70px)}}
+.subnav-in{display:flex; gap:28px; overflow-x:auto; scrollbar-width:thin}
+.subnav a{
+  font-size:.93rem; font-weight:500; white-space:nowrap; text-decoration:none; color:var(--ink-2);
+  padding:16px 0; border-bottom:3px solid transparent; margin-bottom:-1px;
+}
+.subnav a:hover{color:var(--ink)}
+.subnav a.current{color:var(--accent-deep); border-bottom-color:var(--accent)}
+.part{padding-block:clamp(48px,6vw,82px); border-bottom:1px solid var(--line-soft)}
+.part:last-of-type{border-bottom:0}
+.part-head{display:flex; flex-direction:column; gap:14px; margin-bottom:36px}
+.part-head .num{font-size:.7rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--ink-3)}
+.scroll-anchor{scroll-margin-top:150px}
+
+/* ---------- placeholders ---------- */
+.frame{
+  position:relative; width:100%; border:1.4px dashed var(--line); border-radius:var(--radius);
+  background-color:var(--surface-2);
+  background-image:repeating-linear-gradient(135deg, transparent 0 13px, var(--accent-tint) 13px 14px);
+  display:grid; place-items:center; text-align:center; padding:22px; overflow:hidden;
+}
+.frame .fi{display:flex; flex-direction:column; align-items:center; gap:8px; max-width:36ch}
+.frame svg{width:28px; height:28px; color:var(--ink-3); opacity:.8}
+.frame-label{font-weight:600; font-size:.9rem; color:var(--ink-2)}
+.frame-hint{font-size:.78rem; color:var(--ink-3); line-height:1.45}
+.ratio-wide{aspect-ratio:16/9}
+.ratio-hero{aspect-ratio:16/10}
+.ratio-portrait{aspect-ratio:4/5}
+.ratio-square{aspect-ratio:1/1}
+.video-frame{background-image:none; background:linear-gradient(150deg, var(--accent-tint), var(--surface-2))}
+.video-frame .play{
+  width:56px; height:56px; border-radius:50%; background:var(--surface); border:1px solid var(--line);
+  display:grid; place-items:center; box-shadow:var(--shadow);
+}
+.video-frame .play svg{width:19px; height:19px; color:var(--accent); opacity:1; margin-left:3px}
+
+/* fill-in guide */
+.draft{position:relative}
+body.guide .draft{
+  background:var(--guide-fill); box-shadow:inset 3px 0 0 var(--guide-line);
+  padding:11px 15px 11px 17px; margin-left:-17px; border-radius:0 3px 3px 0;
+}
+body.guide .draft::after{
+  content:"draft copy — replace"; position:absolute; top:-9px; left:17px;
+  font-size:.58rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--amber); background:var(--ground); padding:0 6px;
+}
+body.guide .band-tint .draft::after{background:var(--ground-2)}
+body.guide .band-dark .draft::after{background:#0B1117}
+body.guide .frame{border-color:var(--guide-line); background-color:var(--amber-tint)}
+.guide-toggle{
+  position:fixed; right:18px; bottom:calc(18px + env(safe-area-inset-bottom,0px)); z-index:90;
+  display:inline-flex; align-items:center; gap:9px; background:var(--surface);
+  border:1px solid var(--line); border-radius:999px; padding:11px 17px; cursor:pointer;
+  font-size:.83rem; font-weight:600; box-shadow:var(--shadow-lift);
+}
+.guide-dot{width:9px; height:9px; border-radius:50%; background:var(--ink-3)}
+body.guide .guide-dot{background:var(--amber); box-shadow:0 0 0 3.5px var(--amber-tint)}
+
+/* ---------- cards ---------- */
+.card{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:26px; display:flex; flex-direction:column; gap:12px;
+}
+.card-flush{padding:0; overflow:hidden}
+.card-flush .card-body{padding:22px 24px 26px; display:flex; flex-direction:column; gap:11px}
+.card p{font-size:.94rem; color:var(--ink-2); line-height:1.58}
+.card h3{font-size:1.22rem}
+a.card{text-decoration:none}
+a.card:hover{border-color:var(--accent); box-shadow:var(--shadow)}
+a.card:hover h3{color:var(--accent-deep)}
+.tag{
+  display:inline-block; font-size:.66rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--accent-deep); background:var(--accent-tint); padding:5px 11px; border-radius:999px;
+}
+.tag-plain{color:var(--ink-3); background:var(--ground-2)}
+.tag-row{display:flex; flex-wrap:wrap; gap:7px}
+.meta{font-size:.82rem; color:var(--ink-3)}
+
+/* ---------- stats ---------- */
+.stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(26px,4vw,56px)}
+@media (max-width:820px){.stats{grid-template-columns:minmax(0,1fr)}}
+.stat .n{font-family:var(--font-display); font-weight:300; font-size:clamp(2.4rem,4.4vw,3.4rem); line-height:1; letter-spacing:-.03em; color:var(--ink)}
+.stat .n span{color:var(--accent-deep)}
+.stat .l{font-size:.96rem; color:var(--ink-2); margin-top:12px; max-width:34ch}
+.stat .s{font-size:.72rem; color:var(--ink-3); margin-top:9px}
+.mission{
+  font-family:var(--font-display); font-weight:300;
+  font-size:clamp(1.5rem,3.2vw,2.3rem); line-height:1.32; letter-spacing:-.015em; color:var(--ink);
+  max-width:24ch;
+}
+
+/* ---------- diagrams ---------- */
+.diagram{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:22px; overflow-x:auto}
+.diagram svg{display:block; width:100%; min-width:340px; height:auto}
+.dgm-fill-sclera{fill:var(--surface-2)}
+.dgm-fill-vitreous{fill:var(--accent-tint)}
+.dgm-stroke{stroke:var(--ink-2); fill:none; stroke-width:2}
+.dgm-stroke-soft{stroke:var(--ink-3); fill:none; stroke-width:1.2}
+.dgm-accent{fill:var(--accent)}
+.dgm-accent-stroke{stroke:var(--accent); fill:none; stroke-width:2.4}
+.dgm-amber{stroke:var(--amber); fill:none; stroke-width:2.2}
+.dgm-label{font-family:var(--font-body); font-size:14px; font-weight:600; fill:var(--ink-2)}
+.dgm-label-sm{font-family:var(--font-body); font-size:12.5px; font-weight:400; fill:var(--ink-3)}
+.dgm-cap{font-family:var(--font-body); font-size:13px; font-weight:600; fill:var(--ink-2)}
+.dgm-leader{stroke:var(--line); stroke-width:1.2; fill:none}
+
+/* ---------- misc ---------- */
+.note{
+  display:flex; gap:14px; align-items:flex-start; background:var(--ground-2);
+  border-left:3px solid var(--accent); border-radius:0 var(--radius) var(--radius) 0;
+  padding:19px 22px; font-size:.92rem; color:var(--ink-2); line-height:1.58;
+}
+.note svg{width:19px; height:19px; flex:none; color:var(--accent); margin-top:3px}
+.note strong{color:var(--ink); font-weight:600}
+.step-list{display:flex; flex-direction:column; gap:22px}
+.step{display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:start}
+.step-n{
+  width:38px; height:38px; border-radius:50%; background:var(--accent-tint); color:var(--accent-deep);
+  display:grid; place-items:center; font-weight:700; font-size:.92rem;
+}
+.story-row{display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(26px,4vw,52px); align-items:center; padding-block:40px; border-bottom:1px solid var(--line-soft)}
+.story-row:last-child{border-bottom:0}
+.story-row.flip .story-media{order:2}
+@media (max-width:820px){.story-row{grid-template-columns:minmax(0,1fr); gap:24px} .story-row.flip .story-media{order:0}}
+.person{display:grid; grid-template-columns:160px 1fr; gap:24px; align-items:start}
+.person h3{font-size:clamp(1.42rem,2.4vw,1.72rem); font-weight:700; letter-spacing:-.022em}
+.person h3 .cn{font-family:var(--font-body); font-size:.78rem; font-weight:500; color:var(--ink-3); letter-spacing:.04em; margin-left:6px; white-space:nowrap}
+.person .role{font-size:.93rem; font-weight:600; color:var(--accent-deep); line-height:1.45; margin-top:-2px}
+.person .bio{font-size:.96rem; color:var(--ink-2); line-height:1.62}
+.portrait{
+  width:100%; height:auto; aspect-ratio:4/5; object-fit:cover; object-position:50% 18%;
+  border-radius:var(--radius); display:block; background:var(--surface-2);
+}
+@media (max-width:620px){.person{grid-template-columns:minmax(0,1fr)}}
+.contact-line{display:flex; gap:13px; align-items:flex-start}
+.contact-line svg{width:18px; height:18px; color:var(--accent); flex:none; margin-top:4px}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--ground-2); border-top:1px solid var(--line); padding-block:52px 36px}
+.footer-grid{display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:34px}
+@media (max-width:820px){.footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.footer-grid{grid-template-columns:minmax(0,1fr)}}
+.footer-grid h4{font-family:var(--font-body); font-size:.72rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin-bottom:15px}
+.footer-links{display:flex; flex-direction:column; gap:10px}
+.footer-links a{font-size:.93rem; text-decoration:none; color:var(--ink-2)}
+.footer-links a:hover{color:var(--accent-deep); text-decoration:underline; text-underline-offset:3px}
+.footer-bottom{margin-top:38px; padding-top:22px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; font-size:.8rem; color:var(--ink-3)}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important; transition-duration:.001ms!important; scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-in">
+    <a class="brand" href="#/home" data-nav>
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="var(--accent-tint)"></circle>
+        <path d="M5 20c4.6-6.4 9.6-9.6 15-9.6S31.4 13.6 35 20c-3.6 6.4-8.6 9.6-15 9.6S9.6 26.4 5 20Z" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"></path>
+        <circle cx="20" cy="20" r="5.6" fill="var(--accent)"></circle>
+        <circle cx="22" cy="18" r="1.9" fill="var(--surface)"></circle>
+      </svg>
+      <span class="brand-text">
+        <span class="brand-name">Far Sight</span>
+        <span class="brand-sub">Myopia Prevention</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Main">
+      <div class="nav-item" data-page-key="team">
+        <a class="nav-link" href="#/team" data-nav>Our<br>Team
+          <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4.5 6 8.5 10 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </a>
+        <div class="dropdown">
+          <a href="#/team/our-story" data-nav><span class="dd-num">01</span><span><span class="dd-t">Our Story</span><span class="dd-desc">Why each of us started this project</span></span></a>
+          <a href="#/team/meet-the-team" data-nav><span class="dd-num">02</span><span><span class="dd-t">Meet the Team</span><span class="dd-desc">Photos and profiles of the three of us</span></span></a>
+        </div>
+      </div>
+
+      <div class="nav-item" data-page-key="myopia">
+        <a class="nav-link" href="#/myopia" data-nav>Understanding<br>Myopia
+          <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4.5 6 8.5 10 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </a>
+        <div class="dropdown">
+          <a href="#/myopia/what-is-myopia" data-nav><span class="dd-num">01</span><span><span class="dd-t">What Myopia Is</span><span class="dd-desc">Plain-language definition, and why it keeps progressing</span></span></a>
+          <a href="#/myopia/eye-anatomy" data-nav><span class="dd-num">02</span><span><span class="dd-t">Basic Eye Anatomy</span><span class="dd-desc">The parts of the eye that decide how you see</span></span></a>
+          <a href="#/myopia/contributing-factors" data-nav><span class="dd-num">03</span><span><span class="dd-t">Contributing Factors</span><span class="dd-desc">What the research points to, and what it doesn't</span></span></a>
+          <a href="#/myopia/prevention" data-nav><span class="dd-num">04</span><span><span class="dd-t">Introduction to Prevention</span><span class="dd-desc">Habits first, then the clinical options</span></span></a>
+        </div>
+      </div>
+
+      <div class="nav-item" data-page-key="interviews">
+        <a class="nav-link" href="#/interviews" data-nav>Expert<br>Interviews
+          <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4.5 6 8.5 10 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </a>
+        <div class="dropdown">
+          <a href="#/interviews/collection" data-nav><span class="dd-num">01</span><span><span class="dd-t">Interview Collection</span><span class="dd-desc">Every conversation we've filmed, in full</span></span></a>
+          <a href="#/interviews/experts" data-nav><span class="dd-num">02</span><span><span class="dd-t">Expert Profiles</span><span class="dd-desc">Who we spoke with and what they study</span></span></a>
+        </div>
+      </div>
+
+      <div class="nav-item" data-page-key="contact">
+        <a class="nav-link" href="#/contact" data-nav>Contact<br>Us</a>
+      </div>
+    </nav>
+
+    <div class="util">
+      <a class="util-link" href="#/interviews/collection" data-nav>Watch interviews</a>
+      <button class="icon-btn" id="searchBtn" aria-label="Search this site" aria-expanded="false" aria-controls="searchPanel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.6"/><path d="m16 16 4.4 4.4" stroke-linecap="round"/></svg>
+      </button>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><span></span></button>
+    </div>
+  </div>
+
+  <div class="search-panel" id="searchPanel">
+    <div class="wrap">
+      <div class="search-in">
+        <input id="searchInput" type="search" placeholder="Search — try “atropine”, “outdoors”, “anatomy”" aria-label="Search this site">
+        <button class="btn btn-ghost" id="searchClose" type="button">Close</button>
+      </div>
+      <ul class="search-results" id="searchResults"></ul>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HOME ============ -->
+<section class="page" id="page-home">
+
+  <div class="hero">
+    <div class="hero-media">
+      <div class="hero-beam" aria-hidden="true"></div>
+      <div class="hero-slot">
+        <p><span class="t">Hero photograph or short film</span>Replace this panel with a full-width image or a 20-second silent loop — a child outdoors in bright daylight, or a clinic examination. Landscape, at least 2400 × 1200 px, with the left third kept dark so the headline stays readable.</p>
+      </div>
+      <a class="hero-play" href="#/interviews/collection" data-nav aria-label="Watch the interviews">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.4v13.2a1 1 0 0 0 1.53.85l10.3-6.6a1 1 0 0 0 0-1.7L6.53 2.55A1 1 0 0 0 5 3.4Z" fill="currentColor"/></svg>
+      </a>
+      <div class="hero-overlay wrap">
+        <h1>Protecting young eyes</h1>
+        <div class="hero-actions">
+          <a class="link-arrow" href="#/myopia/prevention" data-nav>
+            Learn how myopia is slowed
+            <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2 8 6l-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn-outline-light" href="#/interviews/collection" data-nav>Watch interviews</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap split">
+      <div class="stack" style="gap:20px">
+        <p class="eyebrow">A student project · Guangzhou → United States</p>
+        <h2>Myopia is not something children simply grow into.</h2>
+      </div>
+      <div class="stack" style="gap:22px; align-items:flex-start">
+        <p class="lede draft">In China, slowing childhood myopia has become everyday clinical practice — daylight hours written into the school schedule, axial length measured before the prescription changes, treatment started at age seven instead of seventeen. Most American families have never been told any of it. We are three students bringing that knowledge across, in plain English, straight from the doctors who practise it.</p>
+        <a class="arrow-link" href="#/team/our-story" data-nav>Read our story
+          <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2 8 6l-4 4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="band band-tint">
+    <div class="wrap stats">
+      <div class="stat draft">
+        <p class="n">~<span>50%</span></p>
+        <p class="l">of the world's population is projected to be myopic by 2050, with a tenth at high myopia.</p>
+        <p class="s">Holden et al., <em>Ophthalmology</em> (2016) — verify before publishing</p>
+      </div>
+      <div class="stat draft">
+        <p class="n">42%</p>
+        <p class="l">of Americans aged 12–54 were myopic in the 2000s, up from 25% in the early 1970s.</p>
+        <p class="s">Vitale et al., <em>Arch Ophthalmol</em> (2009) — verify before publishing</p>
+      </div>
+      <div class="stat draft">
+        <p class="n">39.5 → <span>30.4%</span></p>
+        <p class="l">Three-year myopia onset fell this much when Guangzhou schools added 40 minutes of outdoor class time a day.</p>
+        <p class="s">He et al., <em>JAMA</em> (2015) — verify before publishing</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap split">
+      <div class="stack" style="gap:24px; align-items:flex-start">
+        <p class="eyebrow">Our mission</p>
+        <p class="mission draft">To carry proven myopia-prevention practice from China to American families — clearly, honestly, and early enough to matter for a child's eyes.</p>
+        <p class="prose draft" style="font-size:.97rem">Myopia control in China is not experimental. It is a national programme with measurement standards, school policy and a clinical routine that parents understand. In the United States, a child's first pair of glasses is still often the end of the conversation instead of the start of one.</p>
+      </div>
+      <div class="stack" style="gap:12px">
+        <div class="frame ratio-wide">
+          <div class="fi">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m4 17 5-5 4.5 4.5L17 13l3 3"/><circle cx="8.5" cy="9.5" r="1.8"/></svg>
+            <p class="frame-label">Founder photo</p>
+            <p class="frame-hint">Douglas, ideally in his mother's clinic or wearing his own glasses. 1200 × 675 px.</p>
+          </div>
+        </div>
+        <p class="meta">Caption — who is in the photo, where, and when.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band band-dark">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" style="color:var(--accent-deep)">Featured interview</p>
+        <h2>The conversation to start with</h2>
+      </div>
+      <div class="split" style="align-items:center">
+        <div class="frame video-frame ratio-wide">
+          <div class="fi">
+            <div class="play"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.4v13.2a1 1 0 0 0 1.53.85l10.3-6.6a1 1 0 0 0 0-1.7L6.53 2.55A1 1 0 0 0 5 3.4Z" fill="currentColor"/></svg></div>
+            <p class="frame-label">Featured video</p>
+            <p class="frame-hint">Paste the YouTube or Vimeo embed here. Keep it 16:9.</p>
+          </div>
+        </div>
+        <div class="stack" style="gap:16px; align-items:flex-start">
+          <div class="tag-row"><span class="tag">Episode 01</span><span class="tag tag-plain">42 min</span></div>
+          <h3 style="font-size:1.7rem">“We are treating the eye's length, not the prescription.”</h3>
+          <p class="draft" style="color:var(--ink-2)">Dr. [Full Name], [title] at [hospital], explains why axial length is the number that matters, when to start treatment, and the question she wishes every parent would ask at the first appointment.</p>
+          <p class="meta">Recorded [Month Year] · [City] · Mandarin with English subtitles</p>
+          <a class="btn btn-primary" href="#/interviews/collection" data-nav>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.4v13.2a1 1 0 0 0 1.53.85l10.3-6.6a1 1 0 0 0 0-1.7L6.53 2.55A1 1 0 0 0 5 3.4Z" fill="currentColor"/></svg>
+            Watch interviews
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Explore</p>
+        <h2>Three ways into the project</h2>
+      </div>
+      <div class="grid g3">
+        <a class="card card-flush" href="#/myopia/what-is-myopia" data-nav>
+          <div class="frame ratio-wide" style="border:0; border-bottom:1.4px dashed var(--line); border-radius:0">
+            <div class="fi"><p class="frame-label">Section image</p><p class="frame-hint">1200 × 675 px</p></div>
+          </div>
+          <div class="card-body">
+            <span class="tag">Learn</span>
+            <h3>Understanding Myopia</h3>
+            <p>What myopia actually is, how the eye works, what raises a child's risk, and where prevention begins.</p>
+            <span class="arrow-link">Four chapters
+              <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2 8 6l-4 4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+        <a class="card card-flush" href="#/interviews/collection" data-nav>
+          <div class="frame ratio-wide" style="border:0; border-bottom:1.4px dashed var(--line); border-radius:0">
+            <div class="fi"><p class="frame-label">Section image</p><p class="frame-hint">1200 × 675 px</p></div>
+          </div>
+          <div class="card-body">
+            <span class="tag">Watch</span>
+            <h3>Expert Interviews</h3>
+            <p>Unedited conversations with ophthalmologists who treat childhood myopia every day, plus their profiles.</p>
+            <span class="arrow-link">Two parts
+              <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2 8 6l-4 4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+        <a class="card card-flush" href="#/team/our-story" data-nav>
+          <div class="frame ratio-wide" style="border:0; border-bottom:1.4px dashed var(--line); border-radius:0">
+            <div class="fi"><p class="frame-label">Section image</p><p class="frame-hint">1200 × 675 px</p></div>
+          </div>
+          <div class="card-body">
+            <span class="tag">Meet us</span>
+            <h3>Our Team</h3>
+            <p>Three students, three reasons for starting this, and what each of us is responsible for.</p>
+            <span class="arrow-link">Two parts
+              <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2 8 6l-4 4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
+      <div class="note" style="margin-top:38px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.4v5.6M12 16.4h.01" stroke-linecap="round"/></svg>
+        <p><strong>We are students, not doctors.</strong> Everything here is educational. Nothing on this site diagnoses a condition or replaces an eye exam — talk to a licensed optometrist or ophthalmologist about your child.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section class="page" id="page-team" hidden>
+  <div class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Our Team</p>
+      <h1>Three students, one problem</h1>
+      <p class="lede draft">We each arrived at the same question from a different direction — a family clinic, a pair of glasses that kept getting thicker, and a younger sibling we would rather not see repeat it.</p>
+    </div>
+  </div>
+  <div class="subnav"><div class="wrap subnav-in">
+    <a href="#/team/our-story" data-nav>Our Story</a>
+    <a href="#/team/meet-the-team" data-nav>Meet the Team</a>
+  </div></div>
+
+  <div class="part scroll-anchor" id="team-our-story">
+    <div class="wrap">
+      <div class="part-head">
+        <span class="num">Part 01</span>
+        <h2>Our Story</h2>
+        <p class="lede">How each of us ended up caring about a condition most people treat as a minor inconvenience.</p>
+      </div>
+
+      <div class="story-row">
+        <div class="story-media stack" style="gap:10px">
+          <div class="frame ratio-portrait">
+            <div class="fi">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="m4 17 5-5 4.5 4.5L17 13l3 3"/></svg>
+              <p class="frame-label">Douglas — story photo</p>
+              <p class="frame-hint">Portrait, 900 × 1125 px. A childhood photo with glasses works well.</p>
+            </div>
+          </div>
+          <p class="meta">Caption — who, where, what year.</p>
+        </div>
+        <div class="stack" style="gap:16px">
+          <span class="tag">Founder</span>
+          <h3 style="font-size:1.8rem">“My mother could name my prescription before the machine printed it.”</h3>
+          <div class="prose draft">
+            <p>My mother is a myopia specialist. I grew up in her waiting room, and I still became myopic at eight. What I remember is not the diagnosis — it is watching the same conversation happen at her desk a hundred times: a parent surprised, a child already at −3.00, and a year of eye growth that nobody had been watching.</p>
+            <p>[Replace with your own 150–250 words. Concrete beats general: the first pair of glasses, the whiteboard you couldn't read, the first time your mother explained axial length, the moment you realised American friends had never heard any of this.]</p>
+            <p>[Close with the turn — what made this a project rather than a private frustration.]</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-row flip">
+        <div class="story-media stack" style="gap:10px">
+          <div class="frame ratio-portrait">
+            <div class="fi">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="m4 17 5-5 4.5 4.5L17 13l3 3"/></svg>
+              <p class="frame-label">[Teammate 2] — story photo</p>
+              <p class="frame-hint">Portrait, 900 × 1125 px.</p>
+            </div>
+          </div>
+          <p class="meta">Caption — who, where, what year.</p>
+        </div>
+        <div class="stack" style="gap:16px">
+          <span class="tag">Co-founder</span>
+          <h3 style="font-size:1.8rem">“[One sentence of theirs, in quotation marks.]”</h3>
+          <div class="prose draft">
+            <p>[150–250 words in their own voice. What is their connection to myopia — their own eyes, a sibling, a grandparent who lost vision to high myopia, a school where every classmate wore glasses?]</p>
+            <p>[What do they bring to the project — research, filming, translation, outreach to schools?]</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-row">
+        <div class="story-media stack" style="gap:10px">
+          <div class="frame ratio-portrait">
+            <div class="fi">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="m4 17 5-5 4.5 4.5L17 13l3 3"/></svg>
+              <p class="frame-label">[Teammate 3] — story photo</p>
+              <p class="frame-hint">Portrait, 900 × 1125 px.</p>
+            </div>
+          </div>
+          <p class="meta">Caption — who, where, what year.</p>
+        </div>
+        <div class="stack" style="gap:16px">
+          <span class="tag">Co-founder</span>
+          <h3 style="font-size:1.8rem">“[One sentence of theirs, in quotation marks.]”</h3>
+          <div class="prose draft">
+            <p>[150–250 words. Same structure as above — the personal entry point, then the work they do here.]</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="part scroll-anchor band-tint" id="team-meet-the-team">
+    <div class="wrap">
+      <div class="part-head">
+        <span class="num">Part 02</span>
+        <h2>Meet the Team</h2>
+        <p class="lede">Who we are, what each of us does, and how to reach us.</p>
+      </div>
+      <div class="grid g3">
+        <div class="card card-flush">
+          <div class="frame ratio-square" style="border:0; border-bottom:1.4px dashed var(--line); border-radius:0">
+            <div class="fi">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.2a7.5 7.5 0 0 1 15 0"/></svg>
+              <p class="frame-label">Headshot — Douglas</p>
+              <p class="frame-hint">Square, 800 × 800 px. Same background for all three.</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3>Douglas [Last Name]</h3>
+            <p class="meta">Founder · Research &amp; interviews</p>
+            <p class="draft">[60–90 words. School and grade, what you handle on the project, your connection to myopia in one line, and one detail that makes you a person — the sport, the instrument, the hometown.]</p>
+            <div class="tag-row"><span class="tag">Interviews</span><span class="tag">Translation</span></div>
+          </div>
+        </div>
+        <div class="card card-flush">
+          <div class="frame ratio-square" style="border:0; border-bottom:1.4px dashed var(--line); border-radius:0">
+            <div class="fi">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.2a7.5 7.5 0 0 1 15 0"/></svg>
+              <p class="frame-label">Headshot — [Teammate 2]</p>
+              <p class="frame-hint">Square, 800 × 800 px.</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3>[Teammate 2 Full Name]</h3>
+            <p class="meta">Co-founder · [Role]</p>
+            <p class="draft">[60–90 words, same shape as Douglas's profile so the three read as a set.]</p>
+            <div class="tag-row"><span class="tag">[Skill]</span><span class="tag">[Skill]</span></div>
+          </div>
+        </div>
+        <div class="card card-flush">
+          <div class="frame ratio-square" style="border:0; border-bottom:1.4px dashed var(--line); border-radius:0">
+            <div class="fi">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.2a7.5 7.5 0 0 1 15 0"/></svg>
+              <p class="frame-label">Headshot — [Teammate 3]</p>
+              <p class="frame-hint">Square, 800 × 800 px.</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3>[Teammate 3 Full Name]</h3>
+            <p class="meta">Co-founder · [Role]</p>
+            <p class="draft">[60–90 words.]</p>
+            <div class="tag-row"><span class="tag">[Skill]</span><span class="tag">[Skill]</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="note" style="margin-top:32px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.4v5.6M12 16.4h.01" stroke-linecap="round"/></svg>
+        <p><strong>Advisors, if you have them.</strong> If your mother or any clinician is willing to be listed as a medical advisor, add a fourth card here — it is the fastest way to raise a student project's credibility. Name, credentials, affiliation, one line on their role.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ UNDERSTANDING MYOPIA ============ -->
+<section class="page" id="page-myopia" hidden>
+  <div class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Understanding Myopia</p>
+      <h1>Four chapters, no jargon without a translation</h1>
+      <p class="lede">What myopia is, how the eye produces it, what makes it more likely, and where prevention starts.</p>
+    </div>
+  </div>
+  <div class="subnav"><div class="wrap subnav-in">
+    <a href="#/myopia/what-is-myopia" data-nav>What Myopia Is</a>
+    <a href="#/myopia/eye-anatomy" data-nav>Basic Eye Anatomy</a>
+    <a href="#/myopia/contributing-factors" data-nav>Contributing Factors</a>
+    <a href="#/myopia/prevention" data-nav>Introduction to Prevention</a>
+  </div></div>
+
+  <div class="part scroll-anchor" id="myopia-what-is-myopia">
+    <div class="wrap">
+      <div class="part-head">
+        <span class="num">Chapter 01</span>
+        <h2>What Myopia Is</h2>
+      </div>
+      <div class="split" style="align-items:start">
+        <div class="prose draft">
+          <p><strong>Myopia — nearsightedness — is a focusing error caused by shape.</strong> In a myopic eye, the distance from the front of the eye to the retina is too long for the eye's own focusing power. Light from far away comes to a point <em>before</em> it reaches the retina, so distant things blur while close things stay sharp.</p>
+          <p>That distance has a name: <strong>axial length</strong>. It is measured in millimetres, it grows as a child grows, and in myopia it grows too fast. This is why glasses do not fix the problem — they move the focus back onto the retina, but the eye underneath keeps lengthening.</p>
+          <p>It also explains why myopia is a health question rather than a convenience question. A longer eye is a stretched eye, and high myopia raises lifetime risk of retinal detachment, myopic maculopathy, glaucoma and early cataract. [Add the specific risk figures you want to cite, with sources.]</p>
+          <p>[Optional paragraph: the difference between a child's myopia and an adult's, and why the years between roughly 6 and 14 are when the eye is most changeable.]</p>
+        </div>
+        <div class="stack" style="gap:14px">
+          <div class="diagram">
+            <svg viewBox="0 0 640 260" role="img" aria-label="Diagram comparing a normal eye, where light focuses on the retina, with a myopic eye, where light focuses in front of the retina">
+              <text class="dgm-cap" x="20" y="26">Normal eye — focus lands on the retina</text>
+              <circle class="dgm-fill-vitreous" cx="150" cy="140" r="70"></circle>
+              <circle class="dgm-stroke" cx="150" cy="140" r="70"></circle>
+              <path class="dgm-stroke" d="M86 112c-14 10-14 46 0 56"></path>
+              <ellipse class="dgm-accent" cx="98" cy="140" rx="9" ry="26" opacity=".85"></ellipse>
+              <path class="dgm-amber" d="M14 116h80l126 24"></path>
+              <path class="dgm-amber" d="M14 164h80l126-24"></path>
+              <circle class="dgm-accent" cx="220" cy="140" r="4.5"></circle>
+              <text class="dgm-label-sm" x="150" y="232" text-anchor="middle">Sharp point on the retina</text>
+              <text class="dgm-cap" x="350" y="26">Myopic eye — the eye is too long</text>
+              <ellipse class="dgm-fill-vitreous" cx="472" cy="140" rx="88" ry="70"></ellipse>
+              <ellipse class="dgm-stroke" cx="472" cy="140" rx="88" ry="70"></ellipse>
+              <path class="dgm-stroke" d="M390 112c-14 10-14 46 0 56"></path>
+              <ellipse class="dgm-accent" cx="402" cy="140" rx="9" ry="26" opacity=".85"></ellipse>
+              <path class="dgm-amber" d="M318 116h80l108 24 54 12"></path>
+              <path class="dgm-amber" d="M318 164h80l108-24 54-12"></path>
+              <circle class="dgm-accent" cx="506" cy="140" r="4.5"></circle>
+              <path class="dgm-stroke-soft" d="M560 128v24" stroke-dasharray="4 3"></path>
+              <text class="dgm-label-sm" x="472" y="232" text-anchor="middle">Focus falls short — the retina gets a blur</text>
+            </svg>
+          </div>
+          <p class="meta">Same eye, same lens power. The only thing that changed is length.</p>
+          <div class="frame ratio-wide">
+            <div class="fi">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 15h10M7 11h6"/></svg>
+              <p class="frame-label">Optional: prescription or biometry photo</p>
+              <p class="frame-hint">A real (anonymised) axial-length printout makes this concrete. 1200 × 675 px.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="part scroll-anchor band-tint" id="myopia-eye-anatomy">
+    <div class="wrap">
+      <div class="part-head">
+        <span class="num">Chapter 02</span>
+        <h2>Basic Eye Anatomy</h2>
+        <p class="lede">Six parts are enough to follow everything else on this site.</p>
+      </div>
+      <div class="diagram">
+        <svg viewBox="0 0 640 400" role="img" aria-label="Labelled cross-section of the human eye showing cornea, lens, pupil, retina, fovea, optic nerve and axial length">
+          <circle class="dgm-fill-sclera" cx="290" cy="190" r="110"></circle>
+          <circle class="dgm-fill-vitreous" cx="290" cy="190" r="100"></circle>
+          <circle class="dgm-stroke" cx="290" cy="190" r="110"></circle>
+          <path class="dgm-accent-stroke" d="M196 128c-32 14-32 110 0 124"></path>
+          <path class="dgm-stroke" d="M198 130c8 14 10 28 10 36M198 250c8-14 10-28 10-36"></path>
+          <ellipse class="dgm-accent" cx="216" cy="190" rx="16" ry="42" opacity=".85"></ellipse>
+          <ellipse class="dgm-stroke" cx="216" cy="190" rx="16" ry="42"></ellipse>
+          <path class="dgm-accent-stroke" d="M324 94a100 100 0 0 1 0 192" opacity=".9"></path>
+          <circle class="dgm-amber" cx="390" cy="190" r="6" fill="none"></circle>
+          <path class="dgm-stroke" d="M386 244c26 12 50 24 74 38M368 268c24 10 46 22 68 34"></path>
+          <path class="dgm-leader" d="M92 104h48l32 30"></path>
+          <path class="dgm-leader" d="M216 74v66"></path>
+          <path class="dgm-leader" d="M96 318h44l56-112"></path>
+          <path class="dgm-leader" d="M556 104h-52l-42 24"></path>
+          <path class="dgm-leader" d="M556 190h-158"></path>
+          <path class="dgm-leader" d="M556 304h-64l-38-26"></path>
+          <text class="dgm-label" x="20" y="100">Cornea</text>
+          <text class="dgm-label-sm" x="20" y="118">the clear front window</text>
+          <text class="dgm-label" x="216" y="62" text-anchor="middle">Lens</text>
+          <text class="dgm-label" x="20" y="314">Pupil &amp; iris</text>
+          <text class="dgm-label-sm" x="20" y="332">how much light gets in</text>
+          <text class="dgm-label" x="620" y="100" text-anchor="end">Retina</text>
+          <text class="dgm-label-sm" x="620" y="118" text-anchor="end">light-sensitive lining</text>
+          <text class="dgm-label" x="620" y="186" text-anchor="end">Fovea</text>
+          <text class="dgm-label-sm" x="620" y="204" text-anchor="end">sharpest vision</text>
+          <text class="dgm-label" x="620" y="300" text-anchor="end">Optic nerve</text>
+          <path class="dgm-stroke-soft" d="M172 352h228" stroke-dasharray="6 4"></path>
+          <path class="dgm-stroke-soft" d="M172 344v16M400 344v16"></path>
+          <text class="dgm-label" x="286" y="384" text-anchor="middle">Axial length — the number myopia care watches</text>
+        </svg>
+      </div>
+      <div class="grid g3" style="margin-top:30px">
+        <div class="card">
+          <h3>Cornea &amp; lens</h3>
+          <p class="draft">[Two or three sentences: together they bend incoming light. The cornea does most of the work; the lens fine-tunes it and changes shape when you look at something close.]</p>
+        </div>
+        <div class="card">
+          <h3>Retina &amp; fovea</h3>
+          <p class="draft">[Two or three sentences: the screen at the back, and the tiny central patch that gives you detail. Focus has to land exactly here.]</p>
+        </div>
+        <div class="card">
+          <h3>Sclera &amp; axial length</h3>
+          <p class="draft">[Two or three sentences: the white outer wall, and why its stretching is the mechanism of myopia rather than a side effect.]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="part scroll-anchor" id="myopia-contributing-factors">
+    <div class="wrap">
+      <div class="part-head">
+        <span class="num">Chapter 03</span>
+        <h2>Contributing Factors</h2>
+        <p class="lede">Myopia runs in families, but family history alone cannot explain a change this fast in a single generation. Environment does much of the rest.</p>
+      </div>
+      <div class="grid g2">
+        <div class="card">
+          <span class="tag">Strong evidence</span>
+          <h3>Time outdoors — or the lack of it</h3>
+          <p class="draft">[The most consistent protective factor in the literature. Explain the light-intensity idea: outdoor light is 10–100× brighter than indoor lighting, and bright light appears to slow eye elongation, possibly through dopamine release in the retina. Cite the Guangzhou and Taiwan school trials.]</p>
+        </div>
+        <div class="card">
+          <span class="tag">Strong evidence</span>
+          <h3>Sustained near work</h3>
+          <p class="draft">[Long unbroken periods of reading, homework or screens at close distance. Distance and duration seem to matter more than the device itself. Note what is still debated.]</p>
+        </div>
+        <div class="card">
+          <span class="tag tag-plain">Contributing</span>
+          <h3>Family history</h3>
+          <p class="draft">[Risk rises with one myopic parent and rises further with two. Genetics sets the slope; environment decides how far along it a child travels.]</p>
+        </div>
+        <div class="card">
+          <span class="tag tag-plain">Contributing</span>
+          <h3>Early onset age</h3>
+          <p class="draft">[The younger a child becomes myopic, the more years of progression ahead of them — which is why onset age predicts final prescription better than the first prescription does.]</p>
+        </div>
+        <div class="card">
+          <span class="tag tag-plain">Contributing</span>
+          <h3>Sleep, lighting and study load</h3>
+          <p class="draft">[Shorter sleep, dim study lighting and heavy academic schedules all appear in the research, with weaker or mixed evidence. Say so plainly — the honesty is the point.]</p>
+        </div>
+        <div class="card">
+          <span class="tag tag-plain">Myth</span>
+          <h3>What does <em>not</em> cause myopia</h3>
+          <p class="draft">[Reading in the dark, sitting close to the television, carrots, and eye exercises marketed as cures. Correct these directly — parents hear them constantly.]</p>
+        </div>
+      </div>
+      <div class="frame ratio-wide" style="margin-top:30px; max-width:900px">
+        <div class="fi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19V8m5 11V5m5 14v-8m5 8V9"/></svg>
+          <p class="frame-label">Optional chart</p>
+          <p class="frame-hint">A simple bar or line chart — myopia prevalence by country, or by hours spent outdoors. 1400 × 790 px.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="part scroll-anchor band-tint" id="myopia-prevention">
+    <div class="wrap">
+      <div class="part-head">
+        <span class="num">Chapter 04</span>
+        <h2>Introduction to Prevention</h2>
+        <p class="lede">Two layers: habits any family can start this week, and clinical options that require an eye doctor. Habits first — they are free, and the evidence is cleanest.</p>
+      </div>
+      <div class="split" style="align-items:start">
+        <div class="stack" style="gap:24px">
+          <h3 style="font-size:1.45rem">Layer one — daily habits</h3>
+          <div class="step-list">
+            <div class="step"><div class="step-n">1</div><div class="stack" style="gap:6px"><h3 style="font-size:1.15rem">Two hours of daylight a day</h3><p class="draft" style="color:var(--ink-2); font-size:.95rem">[Recess, walking to school, sport, anything outside. Brightness is the active ingredient, not exercise — shade on a bright day still counts.]</p></div></div>
+            <div class="step"><div class="step-n">2</div><div class="stack" style="gap:6px"><h3 style="font-size:1.15rem">Break up near work</h3><p class="draft" style="color:var(--ink-2); font-size:.95rem">[The 20-20-20 habit: every 20 minutes, look at something 20 feet away for 20 seconds. Explain why breaks matter more than total hours.]</p></div></div>
+            <div class="step"><div class="step-n">3</div><div class="stack" style="gap:6px"><h3 style="font-size:1.15rem">Keep reading distance honest</h3><p class="draft" style="color:var(--ink-2); font-size:.95rem">[Roughly a forearm's length from the page. Good desk lighting. Sit up — slouching shortens the distance without anyone noticing.]</p></div></div>
+            <div class="step"><div class="step-n">4</div><div class="stack" style="gap:6px"><h3 style="font-size:1.15rem">Get an eye exam on a schedule</h3><p class="draft" style="color:var(--ink-2); font-size:.95rem">[How often, and what to ask for — including whether the practice measures axial length, not only refraction.]</p></div></div>
+          </div>
+        </div>
+        <div class="stack" style="gap:20px">
+          <h3 style="font-size:1.45rem">Layer two — clinical options</h3>
+          <div class="grid" style="gap:16px">
+            <div class="card"><h3>Low-dose atropine eye drops</h3><p class="draft">[What they are, the concentrations studied, what trials show about slowing progression, and the fact that this is a prescription decision made with a doctor.]</p></div>
+            <div class="card"><h3>Orthokeratology (ortho-k)</h3><p class="draft">[Rigid lenses worn overnight that reshape the cornea. Note the fitting process and the hygiene requirements.]</p></div>
+            <div class="card"><h3>Myopia-control spectacle lenses</h3><p class="draft">[DIMS, HAL and similar designs — glasses that correct distance vision while adding peripheral defocus. Availability differs between China and the US; say where things stand.]</p></div>
+            <div class="card"><h3>Soft multifocal contact lenses</h3><p class="draft">[Daily-wear option with a similar defocus principle. Who tends to be a good candidate.]</p></div>
+          </div>
+          <div class="note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.4v5.6M12 16.4h.01" stroke-linecap="round"/></svg>
+            <p><strong>None of this is a prescription.</strong> Treatment choice depends on a child's age, prescription, axial length and eye health. Bring these names to an eye doctor as questions, not as decisions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTERVIEWS ============ -->
+<section class="page" id="page-interviews" hidden>
+  <div class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Expert Interviews</p>
+      <h1>Straight from the doctors who do this work</h1>
+      <p class="lede draft">We ask practising ophthalmologists the questions parents actually have, record the answers in full, and subtitle them in English. No edits that change meaning.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:8px">
+        <a class="btn btn-primary" href="#/interviews/collection" data-nav>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.4v13.2a1 1 0 0 0 1.53.85l10.3-6.6a1 1 0 0 0 0-1.7L6.53 2.55A1 1 0 0 0 5 3.4Z" fill="currentColor"/></svg>
+          Watch interviews
+        </a>
+        <a class="btn btn-ghost" href="#/interviews/experts" data-nav>See who we spoke with</a>
+      </div>
+    </div>
+  </div>
+  <div class="subnav"><div class="wrap subnav-in">
+    <a href="#/interviews/collection" data-nav>Interview Collection</a>
+    <a href="#/interviews/experts" data-nav>Expert Profiles</a>
+  </div></div>
+
+  <div class="part scroll-anchor" id="interviews-collection">
+    <div class="wrap">
+      <div class="part-head">
+        <span class="num">Part 01</span>
+        <h2>Interview Collection</h2>
+        <p class="lede">Every conversation we have filmed. Newest first.</p>
+      </div>
+      <div class="grid g3">
+
+        <article class="card card-flush">
+          <div class="frame video-frame ratio-wide" style="border:0; border-bottom:1.4px dashed var(--line); border-radius:0">
+            <div class="fi">
+              <div class="play"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.4v13.2a1 1 0 0 0 1.53.85l10.3-6.6a1 1 0 0 0 0-1.7L6.53 2.55A1 1 0 0 0 5 3.4Z" fill="currentColor"/></svg></div>
+              <p class="frame-label">Episode 01 video</p>
+              <p class="frame-hint">Paste the YouTube embed iframe here.</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tag-row"><span class="tag">Episode 01</span><span class="tag tag-plain">42 min</span></div>
+            <h3>“We are treating the eye's length, not the prescription.”</h3>
+            <p class="meta">Dr. [Name] · [Hospital] · [Month Year]</p>
+            <p class="draft">[Two sentences on what this interview covers and the one thing a parent should take away from it.]</p>
+          </div>
+        </article>
+
+        <article class="card card-flush">
+          <div class="frame video-frame ratio-wide" style="border:0; border-bottom:1.4px dashed var(--line); border-radius:0">
+            <div class="fi">
+              <div class="play"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.4v13.2a1 1 0 0 0 1.53.85l10.3-6.6a1 1 0 0 0 0-1.7L6.53 2.55A1 1 0 0 0 5 3.4Z" fill="currentColor"/></svg></div>
+              <p class="frame-label">Episode 02 video</p>
+              <p class="frame-hint">Paste the embed iframe here.</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tag-row"><span class="tag">Episode 02</span><span class="tag tag-plain">[00] min</span></div>
+            <h3>“[Pull the strongest line from the interview and use it as the title.]”</h3>
+            <p class="meta">Dr. [Name] · [Hospital] · [Month Year]</p>
+            <p class="draft">[Two-sentence summary.]</p>
+          </div>
+        </article>
+
+        <article class="card card-flush">
+          <div class="frame video-frame ratio-wide" style="border:0; border-bottom:1.4px dashed var(--line); border-radius:0">
+            <div class="fi">
+              <div class="play"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.4v13.2a1 1 0 0 0 1.53.85l10.3-6.6a1 1 0 0 0 0-1.7L6.53 2.55A1 1 0 0 0 5 3.4Z" fill="currentColor"/></svg></div>
+              <p class="frame-label">Episode 03 video</p>
+              <p class="frame-hint">Paste the embed iframe here.</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tag-row"><span class="tag">Episode 03</span><span class="tag tag-plain">[00] min</span></div>
+            <h3>“[Quote title.]”</h3>
+            <p class="meta">Dr. [Name] · [Hospital] · [Month Year]</p>
+            <p class="draft">[Two-sentence summary.]</p>
+          </div>
+        </article>
+
+        <article class="card card-flush">
+          <div class="frame video-frame ratio-wide" style="border:0; border-bottom:1.4px dashed var(--line); border-radius:0">
+            <div class="fi">
+              <div class="play"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.4v13.2a1 1 0 0 0 1.53.85l10.3-6.6a1 1 0 0 0 0-1.7L6.53 2.55A1 1 0 0 0 5 3.4Z" fill="currentColor"/></svg></div>
+              <p class="frame-label">Episode 04 video</p>
+              <p class="frame-hint">Paste the embed iframe here.</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tag-row"><span class="tag">Episode 04</span><span class="tag tag-plain">[00] min</span></div>
+            <h3>“[Quote title.]”</h3>
+            <p class="meta">Dr. [Name] · [Hospital] · [Month Year]</p>
+            <p class="draft">[Two-sentence summary.]</p>
+          </div>
+        </article>
+
+        <article class="card card-flush">
+          <div class="frame video-frame ratio-wide" style="border:0; border-bottom:1.4px dashed var(--line); border-radius:0">
+            <div class="fi">
+              <div class="play"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.4v13.2a1 1 0 0 0 1.53.85l10.3-6.6a1 1 0 0 0 0-1.7L6.53 2.55A1 1 0 0 0 5 3.4Z" fill="currentColor"/></svg></div>
+              <p class="frame-label">Episode 05 video</p>
+              <p class="frame-hint">Paste the embed iframe here.</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tag-row"><span class="tag">Episode 05</span><span class="tag tag-plain">[00] min</span></div>
+            <h3>“[Quote title.]”</h3>
+            <p class="meta">Dr. [Name] · [Hospital] · [Month Year]</p>
+            <p class="draft">[Two-sentence summary.]</p>
+          </div>
+        </article>
+
+        <article class="card" style="border-style:dashed; align-items:flex-start; justify-content:center; gap:12px">
+          <span class="tag tag-plain">Coming soon</span>
+          <h3>Next interview in progress</h3>
+          <p>Duplicate one of these cards for every new episode. Keep the title a quotation — it is what makes people press play.</p>
+          <a class="btn btn-ghost" href="#/contact" data-nav style="margin-top:4px">Suggest an expert</a>
+        </article>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="part scroll-anchor band-tint" id="interviews-experts">
+    <div class="wrap">
+      <div class="part-head">
+        <span class="num">Part 02</span>
+        <h2>Expert Profiles</h2>
+        <p class="lede">The ophthalmologists and researchers who have given us their time. Credentials listed in full, so readers can check them.</p>
+      </div>
+      <div class="grid g2">
+
+        <article class="card person">
+          <img class="portrait" src="images/dr-zhao-yang.jpg" alt="Portrait of Dr. Zhao Yang in a white coat" width="640" height="800">
+          <div class="stack" style="gap:11px">
+            <h3>Dr. Zhao Yang, MD<span class="cn">赵阳</span></h3>
+            <p class="role">Chief Physician, Cataract Centre<br>Beijing Tongren Hospital, Capital Medical University</p>
+            <p class="bio">Dr. Zhao has practised ophthalmology for 25 years and operates on the most complex cataract cases — eyes also affected by high myopia, glaucoma or diabetes. He developed the 4L treatment protocol and the reverse pre-chop surgical technique, and has published more than 40 peer-reviewed papers.</p>
+            <p class="meta">MD, Peking University Health Science Center · Member, Ophthalmology Society of the Chinese Medical Association</p>
+            <div class="tag-row"><span class="tag">Complex cataract surgery</span><span class="tag">High myopia</span><span class="tag">Femtosecond laser</span></div>
+            <a class="arrow-link" href="#/interviews/collection" data-nav>Watch Episode 01
+              <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2 8 6l-4 4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="card person">
+          <div class="frame ratio-portrait">
+            <div class="fi">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.2a7.5 7.5 0 0 1 15 0"/></svg>
+              <p class="frame-label">Portrait</p>
+              <p class="frame-hint">600 × 750 px</p>
+            </div>
+          </div>
+          <div class="stack" style="gap:11px">
+            <h3>Dr. [Full Name], MD</h3>
+            <p class="role">[Title]<br>[Hospital or University], [City]</p>
+            <p class="bio draft">[Two or three sentences — what they do, how long they have done it, and the one thing they are known for. Keep it the same length as Dr. Zhao's so the four cards read as a set.]</p>
+            <p class="meta">[Degree, university] · [One membership or affiliation]</p>
+            <div class="tag-row"><span class="tag">[Specialty]</span><span class="tag">[Specialty]</span></div>
+            <a class="arrow-link" href="#/interviews/collection" data-nav>Watch Episode 02
+              <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2 8 6l-4 4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="card person">
+          <div class="frame ratio-portrait">
+            <div class="fi">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.2a7.5 7.5 0 0 1 15 0"/></svg>
+              <p class="frame-label">Portrait</p>
+              <p class="frame-hint">600 × 750 px</p>
+            </div>
+          </div>
+          <div class="stack" style="gap:11px">
+            <h3>Dr. [Full Name], MD</h3>
+            <p class="role">[Title]<br>[Hospital or University], [City]</p>
+            <p class="bio draft">[Two or three sentences — what they do, how long they have done it, and the one thing they are known for. Keep it the same length as Dr. Zhao's so the four cards read as a set.]</p>
+            <p class="meta">[Degree, university] · [One membership or affiliation]</p>
+            <div class="tag-row"><span class="tag">[Specialty]</span><span class="tag">[Specialty]</span></div>
+            <a class="arrow-link" href="#/interviews/collection" data-nav>Watch Episode 03
+              <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2 8 6l-4 4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="card person">
+          <div class="frame ratio-portrait">
+            <div class="fi">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.2a7.5 7.5 0 0 1 15 0"/></svg>
+              <p class="frame-label">Portrait</p>
+              <p class="frame-hint">600 × 750 px</p>
+            </div>
+          </div>
+          <div class="stack" style="gap:11px">
+            <h3>Dr. [Full Name], MD</h3>
+            <p class="role">[Title]<br>[Hospital or University], [City]</p>
+            <p class="bio draft">[Two or three sentences — what they do, how long they have done it, and the one thing they are known for. Keep it the same length as Dr. Zhao's so the four cards read as a set.]</p>
+            <p class="meta">[Degree, university] · [One membership or affiliation]</p>
+            <div class="tag-row"><span class="tag">[Specialty]</span><span class="tag">[Specialty]</span></div>
+            <a class="arrow-link" href="#/interviews/collection" data-nav>Watch Episode 04
+              <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2 8 6l-4 4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+      <div class="note" style="margin-top:30px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.4v5.6M12 16.4h.01" stroke-linecap="round"/></svg>
+        <p><strong>Get written permission for every portrait and clip.</strong> One short release email per expert, naming the site and how the video will be used, protects the project and reassures the next doctor you ask.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="page" id="page-contact" hidden>
+  <div class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Contact Us</p>
+      <h1>Get in touch</h1>
+      <p class="lede draft">Questions, corrections, an expert we should interview, or a school that wants a presentation — we read everything and answer within a few days.</p>
+    </div>
+  </div>
+  <div class="subnav"><div class="wrap subnav-in">
+    <a href="#/contact/contact-information" data-nav>Contact Information</a>
+  </div></div>
+
+  <div class="part scroll-anchor" id="contact-contact-information">
+    <div class="wrap">
+      <div class="part-head">
+        <span class="num">Part 01</span>
+        <h2>Contact Information</h2>
+      </div>
+      <div class="grid g3">
+        <div class="card">
+          <h3>Email</h3>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.8 6.8 8.2 6 8.2-6"/></svg>
+            <p class="draft" style="font-size:.95rem">[hello@yourdomain.org]<br><span class="meta">General questions and media</span></p>
+          </div>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.8 6.8 8.2 6 8.2-6"/></svg>
+            <p class="draft" style="font-size:.95rem">[interviews@yourdomain.org]<br><span class="meta">Experts and interview requests</span></p>
+          </div>
+          <a class="btn btn-primary" href="mailto:hello@yourdomain.org" style="align-self:flex-start; margin-top:6px">Send us an email</a>
+        </div>
+
+        <div class="card">
+          <h3>Follow the project</h3>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.6v4.8l4.2-2.4z" fill="currentColor" stroke="none"/></svg>
+            <p class="draft" style="font-size:.95rem">YouTube — [@channel-handle]<br><span class="meta">Every full interview</span></p>
+          </div>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+            <p class="draft" style="font-size:.95rem">Instagram — [@handle]<br><span class="meta">Clips and prevention tips</span></p>
+          </div>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 5.5h16v13H8l-4 3z"/></svg>
+            <p class="draft" style="font-size:.95rem">WeChat — [ID or QR code]<br><span class="meta">For contacts in China</span></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Where we are</h3>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+            <p class="draft" style="font-size:.95rem">[City, State / Province]<br><span class="meta">The team works between [city] and [city]</span></p>
+          </div>
+          <div class="frame ratio-square" style="margin-top:6px">
+            <div class="fi">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1"/><rect x="13.5" y="3.5" width="7" height="7" rx="1"/><rect x="3.5" y="13.5" width="7" height="7" rx="1"/><path d="M13.5 13.5h7v7h-7z"/></svg>
+              <p class="frame-label">QR code</p>
+              <p class="frame-hint">WeChat or a link to the interview channel. 600 × 600 px.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:32px; max-width:900px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.4v5.6M12 16.4h.01" stroke-linecap="round"/></svg>
+        <p><strong>We cannot answer medical questions.</strong> If you are worried about a child's vision, please see a licensed eye doctor. We are happy to help you think of questions to ask at the appointment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="stack" style="gap:14px">
+        <a class="brand" href="#/home" data-nav style="padding:0">
+          <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <circle cx="20" cy="20" r="19" fill="var(--accent-tint)"></circle>
+            <path d="M5 20c4.6-6.4 9.6-9.6 15-9.6S31.4 13.6 35 20c-3.6 6.4-8.6 9.6-15 9.6S9.6 26.4 5 20Z" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"></path>
+            <circle cx="20" cy="20" r="5.6" fill="var(--accent)"></circle>
+            <circle cx="22" cy="18" r="1.9" fill="var(--surface)"></circle>
+          </svg>
+          <span class="brand-text">
+            <span class="brand-name">Far Sight</span>
+            <span class="brand-sub">Myopia Prevention</span>
+          </span>
+        </a>
+        <p style="font-size:.88rem; color:var(--ink-3); max-width:36ch">A student-run education project bringing myopia-prevention practice from China to families in the United States.</p>
+      </div>
+      <div>
+        <h4>Our Team</h4>
+        <div class="footer-links">
+          <a href="#/team/our-story" data-nav>Our Story</a>
+          <a href="#/team/meet-the-team" data-nav>Meet the Team</a>
+        </div>
+      </div>
+      <div>
+        <h4>Understanding Myopia</h4>
+        <div class="footer-links">
+          <a href="#/myopia/what-is-myopia" data-nav>What Myopia Is</a>
+          <a href="#/myopia/eye-anatomy" data-nav>Basic Eye Anatomy</a>
+          <a href="#/myopia/contributing-factors" data-nav>Contributing Factors</a>
+          <a href="#/myopia/prevention" data-nav>Introduction to Prevention</a>
+        </div>
+      </div>
+      <div>
+        <h4>Interviews &amp; Contact</h4>
+        <div class="footer-links">
+          <a href="#/interviews/collection" data-nav>Interview Collection</a>
+          <a href="#/interviews/experts" data-nav>Expert Profiles</a>
+          <a href="#/contact/contact-information" data-nav>Contact Information</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year">2026</span> [Project Name]. Educational content only — not medical advice.</p>
+      <p>Built by three students. Sources listed with each claim.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="guide-toggle" id="guideToggle" aria-pressed="true">
+  <span class="guide-dot" aria-hidden="true"></span>
+  <span id="guideLabel">Fill-in guide: on</span>
+</button>
+
+<script>
+(function(){
+  var PAGES = {
+    home:       {el:'page-home',       parts:{}},
+    team:       {el:'page-team',       parts:{'our-story':'team-our-story','meet-the-team':'team-meet-the-team'}},
+    myopia:     {el:'page-myopia',     parts:{'what-is-myopia':'myopia-what-is-myopia','eye-anatomy':'myopia-eye-anatomy','contributing-factors':'myopia-contributing-factors','prevention':'myopia-prevention'}},
+    interviews: {el:'page-interviews', parts:{'collection':'interviews-collection','experts':'interviews-experts'}},
+    contact:    {el:'page-contact',    parts:{'contact-information':'contact-contact-information'}}
+  };
+
+  var INDEX = [
+    {t:'Home', s:'Mission, statistics and the featured interview', h:'#/home', k:'home mission start featured'},
+    {t:'Our Story', s:'Our Team · why each of us started this', h:'#/team/our-story', k:'story founder douglas mother clinic'},
+    {t:'Meet the Team', s:'Our Team · profiles of the three of us', h:'#/team/meet-the-team', k:'team profiles who we are advisor'},
+    {t:'What Myopia Is', s:'Understanding Myopia · chapter 01', h:'#/myopia/what-is-myopia', k:'nearsighted axial length definition blur prescription high myopia'},
+    {t:'Basic Eye Anatomy', s:'Understanding Myopia · chapter 02', h:'#/myopia/eye-anatomy', k:'anatomy cornea lens retina fovea sclera pupil optic nerve diagram'},
+    {t:'Contributing Factors', s:'Understanding Myopia · chapter 03', h:'#/myopia/contributing-factors', k:'outdoors daylight near work screens genetics sleep myths risk'},
+    {t:'Introduction to Prevention', s:'Understanding Myopia · chapter 04', h:'#/myopia/prevention', k:'prevention outdoors 20-20-20 atropine ortho-k orthokeratology dims lenses contact exam habits'},
+    {t:'Interview Collection', s:'Expert Interviews · every episode', h:'#/interviews/collection', k:'interviews video episodes watch film doctors'},
+    {t:'Expert Profiles', s:'Expert Interviews · who we spoke with', h:'#/interviews/experts', k:'experts ophthalmologist doctor credentials profiles'},
+    {t:'Contact Information', s:'Contact Us · email, social, location', h:'#/contact/contact-information', k:'contact email instagram youtube wechat address qr'}
+  ];
+
+  var nav = document.getElementById('nav');
+  var burger = document.getElementById('burger');
+  var panel = document.getElementById('searchPanel');
+  var searchBtn = document.getElementById('searchBtn');
+  var input = document.getElementById('searchInput');
+  var results = document.getElementById('searchResults');
+
+  function parseHash(){
+    var h = (location.hash || '').replace(/^#\/?/, '');
+    var bits = h.split('/').filter(Boolean);
+    var page = bits[0] && PAGES[bits[0]] ? bits[0] : 'home';
+    return {page:page, part:bits[1] || ''};
+  }
+
+  function render(scroll){
+    var r = parseHash();
+    Object.keys(PAGES).forEach(function(k){
+      var el = document.getElementById(PAGES[k].el);
+      if(el) el.hidden = (k !== r.page);
+    });
+    document.querySelectorAll('.nav-item').forEach(function(it){
+      it.classList.toggle('is-active', it.getAttribute('data-page-key') === r.page);
+    });
+    var root = document.getElementById(PAGES[r.page].el);
+    if(root){
+      root.querySelectorAll('.subnav a').forEach(function(a){
+        var target = (a.getAttribute('href') || '').split('/')[2] || '';
+        a.classList.toggle('current', !!r.part && target === r.part);
+      });
+    }
+    var anchorId = PAGES[r.page].parts[r.part];
+    if(anchorId && scroll){
+      var target = document.getElementById(anchorId);
+      if(target){
+        var behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+        window.requestAnimationFrame(function(){ target.scrollIntoView({behavior:behavior, block:'start'}); });
+        return;
+      }
+    }
+    if(scroll) window.scrollTo({top:0, behavior:'auto'});
+  }
+
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[data-nav]');
+    if(!a) return;
+    var href = a.getAttribute('href');
+    if(!href || href.charAt(0) !== '#') return;
+    e.preventDefault();
+    nav.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+    closeSearch();
+    if(location.hash === href){ render(true); } else { location.hash = href; }
+    if(a.blur) a.blur();
+  });
+
+  window.addEventListener('hashchange', function(){ render(true); });
+
+  burger.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  function closeSearch(){
+    panel.classList.remove('open');
+    searchBtn.setAttribute('aria-expanded','false');
+  }
+  searchBtn.addEventListener('click', function(){
+    var open = panel.classList.toggle('open');
+    searchBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if(open){ input.focus(); draw(input.value); }
+  });
+  document.getElementById('searchClose').addEventListener('click', closeSearch);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeSearch(); nav.classList.remove('open'); } });
+
+  function draw(q){
+    q = (q || '').trim().toLowerCase();
+    var rows = q ? INDEX.filter(function(it){
+      return (it.t + ' ' + it.s + ' ' + it.k).toLowerCase().indexOf(q) !== -1;
+    }) : INDEX;
+    results.innerHTML = '';
+    if(!rows.length){
+      var li = document.createElement('li');
+      li.className = 'search-empty';
+      li.textContent = 'Nothing matches “' + q + '”. Try “outdoors”, “atropine” or “anatomy”.';
+      results.appendChild(li);
+      return;
+    }
+    rows.forEach(function(it){
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = it.h;
+      a.setAttribute('data-nav','');
+      a.innerHTML = '<span class="r-t"></span><span class="r-s"></span>';
+      a.firstChild.textContent = it.t;
+      a.lastChild.textContent = it.s;
+      li.appendChild(a);
+      results.appendChild(li);
+    });
+  }
+  input.addEventListener('input', function(){ draw(input.value); });
+  draw('');
+
+  var toggle = document.getElementById('guideToggle');
+  var label = document.getElementById('guideLabel');
+  function setGuide(on){
+    document.body.classList.toggle('guide', on);
+    toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+    label.textContent = 'Fill-in guide: ' + (on ? 'on' : 'off');
+    try{ localStorage.setItem('fs-guide', on ? '1' : '0'); }catch(err){}
+  }
+  var saved = '1';
+  try{ var v = localStorage.getItem('fs-guide'); if(v !== null) saved = v; }catch(err){}
+  setGuide(saved === '1');
+  toggle.addEventListener('click', function(){ setGuide(!document.body.classList.contains('guide')); });
+
+  var y = document.getElementById('year');
+  if(y) y.textContent = new Date().getFullYear();
+
+  render(false);
+
+  // A deep link opened directly should land on its part, without animation.
+  (function(){
+    var r = parseHash();
+    var id = PAGES[r.page].parts[r.part];
+    if(!id) return;
+    var t = document.getElementById(id);
+    if(t) setTimeout(function(){ t.scrollIntoView({block:'start'}); }, 60);
+  })();
+})();
+</script>
+</body>
+</html>
