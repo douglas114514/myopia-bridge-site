@@ -120,7 +120,7 @@ button{font:inherit; color:inherit; background:none; border:0}
 }
 .header-in{display:flex; align-items:stretch; gap:26px; min-height:88px}
 .brand{display:flex; align-items:center; gap:12px; text-decoration:none; padding-block:16px; flex:none}
-.brand-mark{width:38px; height:38px; flex:none}
+.brand-mark{width:38px; height:38px; flex:none; object-fit:contain}
 .brand-text{display:flex; flex-direction:column; line-height:1.05}
 .brand-name{font-family:var(--font-display); font-weight:500; font-size:1.42rem; letter-spacing:-.02em}
 .brand-sub{font-size:.585rem; font-weight:700; letter-spacing:.17em; text-transform:uppercase; color:var(--ink-3); margin-top:5px}
@@ -170,7 +170,7 @@ button{font:inherit; color:inherit; background:none; border:0}
 }
 @media (max-width:920px){
   .header-in{min-height:70px; align-items:center; gap:12px}
-  .brand-mark{width:32px; height:32px}
+  .brand-mark{width:32px; height:32px; object-fit:contain}
   .brand-name{font-size:1.2rem}
   .burger{display:inline-flex}
   .util{gap:0}
@@ -472,17 +472,26 @@ a.card:hover h3{color:var(--accent-deep)}
   *{animation-duration:.001ms!important; transition-duration:.001ms!important; scroll-behavior:auto!important}
 }
 </style>
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<meta name="theme-color" content="#0E5FC0">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MyopiaBridge">
+<meta property="og:title" content="MyopiaBridge — Bridging knowledge, protecting vision">
+<meta property="og:description" content="A student project carrying myopia-prevention practice from China to families in the United States.">
+<meta property="og:url" content="https://myopiabridge.org/">
+<meta property="og:image" content="https://myopiabridge.org/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://myopiabridge.org/images/og-image.png">
 </head>
 <body>
 <header class="site-header">
   <div class="wrap header-in">
     <a class="brand" href="#/home" data-nav>
-      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
-        <circle cx="20" cy="20" r="19" fill="var(--accent-tint)"></circle>
-        <path d="M5 20c4.6-6.4 9.6-9.6 15-9.6S31.4 13.6 35 20c-3.6 6.4-8.6 9.6-15 9.6S9.6 26.4 5 20Z" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"></path>
-        <circle cx="20" cy="20" r="5.6" fill="var(--accent)"></circle>
-        <circle cx="22" cy="18" r="1.9" fill="var(--surface)"></circle>
-      </svg>
+      <img class="brand-mark" src="images/mb-mark.png" alt="MyopiaBridge" width="512" height="512">
       <span class="brand-text">
         <span class="brand-name">MyopiaBridge</span>
         <span class="brand-sub">Bridging knowledge · protecting vision</span>
@@ -574,11 +583,12 @@ a.card:hover h3{color:var(--accent-deep)}
   <div class="band">
     <div class="wrap split">
       <div class="stack" style="gap:20px">
-        <p class="eyebrow">A student project · Guangzhou → United States</p>
+        <p class="eyebrow">A student project · Shanghai → United States</p>
         <h2>Myopia is not something children simply grow into.</h2>
       </div>
       <div class="stack" style="gap:22px; align-items:flex-start">
-        <p class="lede draft">In China, slowing childhood myopia has become everyday clinical practice — daylight hours written into the school schedule, axial length measured before the prescription changes, treatment started at age seven instead of seventeen. Most American families have never been told any of it. We are three students bringing that knowledge across, in plain English, straight from the doctors who practise it.</p>
+        <p class="lede">In 2018, eight Chinese government departments made childhood myopia a national priority. Schools now check every student's vision twice a semester and keep an eye-health file for each child. First and second graders are set no written homework, screens are capped at a share of class time, and children are sent outdoors for at least an hour a day. More than half of Chinese children are already myopic — around 80% by the end of senior high. Most American families have never been told any of this. We are three students bringing it across, in plain English, from the doctors who practise it.</p>
+        <p class="meta" style="max-width:62ch">Sources: China's 2018 <em>Implementation Plan for Comprehensive Prevention and Control of Myopia in Children and Adolescents</em>; <em>Community Eye Health Journal</em> (2023); Global Eye Health Commission.</p>
         <a class="arrow-link" href="#/team/our-story" data-nav>Read our story
           <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2 8 6l-4 4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -611,7 +621,7 @@ a.card:hover h3{color:var(--accent-deep)}
       <div class="stack" style="gap:24px; align-items:flex-start">
         <p class="eyebrow">Our mission</p>
         <p class="mission draft">To carry proven myopia-prevention practice from China to American families — clearly, honestly, and early enough to matter for a child's eyes.</p>
-        <p class="prose draft" style="font-size:.97rem">Myopia control in China is not experimental. It is a national programme with measurement standards, school policy and a clinical routine that parents understand. In the United States, a child's first pair of glasses is still often the end of the conversation instead of the start of one.</p>
+        <p class="prose" style="font-size:.97rem">Myopia control in China is not experimental. It is a national programme with measurement standards, school policy and a clinical routine parents understand — the plan sets a target of cutting childhood myopia by half a percentage point a year, and a full point in the worst-affected provinces. In the United States, a child's first pair of glasses is still often the end of the conversation instead of the start of one.</p>
       </div>
       <div class="stack" style="gap:12px">
         <div class="frame ratio-wide">
@@ -1330,12 +1340,7 @@ a.card:hover h3{color:var(--accent-deep)}
     <div class="footer-grid">
       <div class="stack" style="gap:14px">
         <a class="brand" href="#/home" data-nav style="padding:0">
-          <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
-            <circle cx="20" cy="20" r="19" fill="var(--accent-tint)"></circle>
-            <path d="M5 20c4.6-6.4 9.6-9.6 15-9.6S31.4 13.6 35 20c-3.6 6.4-8.6 9.6-15 9.6S9.6 26.4 5 20Z" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"></path>
-            <circle cx="20" cy="20" r="5.6" fill="var(--accent)"></circle>
-            <circle cx="22" cy="18" r="1.9" fill="var(--surface)"></circle>
-          </svg>
+          <img class="brand-mark" src="images/mb-mark.png" alt="MyopiaBridge" width="512" height="512">
           <span class="brand-text">
             <span class="brand-name">MyopiaBridge</span>
             <span class="brand-sub">Bridging knowledge · protecting vision</span>
