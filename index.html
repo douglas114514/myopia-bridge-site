@@ -941,18 +941,21 @@ a.card:hover h3{color:var(--accent-deep)}
       <div class="part-head">
         <span class="num">Chapter 01</span>
         <h2>What Myopia Is</h2>
+        <p class="lede">Myopia is more than blurry distance vision. It is a mismatch between the eye's focusing power and its length, and in children it can change as the eye grows.</p>
       </div>
       <div class="split" style="align-items:start">
-        <div class="prose draft">
-          <p><strong>Myopia — nearsightedness — is a focusing error caused by shape.</strong> In a myopic eye, the distance from the front of the eye to the retina is too long for the eye's own focusing power. Light from far away comes to a point <em>before</em> it reaches the retina, so distant things blur while close things stay sharp.</p>
-          <p>That distance has a name: <strong>axial length</strong>. It is measured in millimetres, it grows as a child grows, and in myopia it grows too fast. This is why glasses do not fix the problem — they move the focus back onto the retina, but the eye underneath keeps lengthening.</p>
-          <p>It also explains why myopia is a health question rather than a convenience question. A longer eye is a stretched eye, and high myopia raises lifetime risk of retinal detachment, myopic maculopathy, glaucoma and early cataract. [Add the specific risk figures you want to cite, with sources.]</p>
-          <p>[Optional paragraph: the difference between a child's myopia and an adult's, and why the years between roughly 6 and 14 are when the eye is most changeable.]</p>
+        <div class="prose">
+          <p><strong>Myopia — also called nearsightedness — means distant light focuses in front of the retina instead of on it.</strong> Faraway signs, faces or classroom writing may look blurred, while close work is usually clearer. A child may squint, move closer to the board or say that distance details are hard to see.</p>
+          <p>In most childhood myopia, the main change is <strong>axial elongation</strong>: the eye grows too long from front to back for the combined focusing power of the cornea and lens. Less often, the cornea or lens supplies too much focusing power for the eye's length. An eye examination — usually including cycloplegic refraction in children — is needed to tell what is happening.</p>
+          <p>Clinicians describe refractive error in <strong>diopters (D)</strong>. The International Myopia Institute defines myopia as a spherical-equivalent refraction of −0.50 D or more myopic and high myopia as −6.00 D or more myopic, measured with accommodation relaxed. The prescription in diopters and axial length in millimetres are related, but they are not interchangeable measurements.</p>
+          <p>Glasses or ordinary contact lenses move the image back onto the retina so vision is clear. They do not shorten an elongated eye. Myopia-control treatment has a different goal: to slow further change while a child's eyes are still growing.</p>
+          <p><strong>Children and adults do not follow one fixed timetable.</strong> Childhood-onset myopia often progresses through the school years, and earlier onset generally leaves more years for progression. Adult-onset and adult progression can occur too, so a changing prescription deserves a full eye examination at any age.</p>
+          <p><strong>Why degree matters.</strong> Higher myopia is associated with greater odds of retinal detachment, glaucoma, myopic maculopathy and some cataracts. In adult observational studies summarized by Flitcroft, retinal-detachment odds were 4.4 times higher at −1 to −3 D and 9.9 times higher at −3 to −8 D than in the comparison group; moderate-to-high myopia was associated with 3.3 times the odds of glaucoma, and high myopia with 5.5 times the odds of posterior subcapsular cataract. These are group-level odds ratios from different studies — not a forecast of any one person's lifetime risk.</p>
         </div>
         <div class="stack" style="gap:14px">
           <div class="diagram">
-            <svg viewBox="0 0 640 260" role="img" aria-label="Diagram comparing a normal eye, where light focuses on the retina, with a myopic eye, where light focuses in front of the retina">
-              <text class="dgm-cap" x="20" y="26">Normal eye — focus lands on the retina</text>
+            <svg viewBox="0 0 640 260" role="img" aria-label="Diagram comparing an eye that focuses distant light on the retina with a longer myopic eye that focuses light in front of the retina">
+              <text class="dgm-cap" x="20" y="26">Focus on the retina</text>
               <circle class="dgm-fill-vitreous" cx="150" cy="140" r="70"></circle>
               <circle class="dgm-stroke" cx="150" cy="140" r="70"></circle>
               <path class="dgm-stroke" d="M86 112c-14 10-14 46 0 56"></path>
@@ -960,8 +963,8 @@ a.card:hover h3{color:var(--accent-deep)}
               <path class="dgm-amber" d="M14 116h80l126 24"></path>
               <path class="dgm-amber" d="M14 164h80l126-24"></path>
               <circle class="dgm-accent" cx="220" cy="140" r="4.5"></circle>
-              <text class="dgm-label-sm" x="150" y="232" text-anchor="middle">Sharp point on the retina</text>
-              <text class="dgm-cap" x="350" y="26">Myopic eye — the eye is too long</text>
+              <text class="dgm-label-sm" x="150" y="232" text-anchor="middle">Distant image is sharp</text>
+              <text class="dgm-cap" x="350" y="26">Longer, myopic eye</text>
               <ellipse class="dgm-fill-vitreous" cx="472" cy="140" rx="88" ry="70"></ellipse>
               <ellipse class="dgm-stroke" cx="472" cy="140" rx="88" ry="70"></ellipse>
               <path class="dgm-stroke" d="M390 112c-14 10-14 46 0 56"></path>
@@ -970,18 +973,40 @@ a.card:hover h3{color:var(--accent-deep)}
               <path class="dgm-amber" d="M318 164h80l108-24 54-12"></path>
               <circle class="dgm-accent" cx="506" cy="140" r="4.5"></circle>
               <path class="dgm-stroke-soft" d="M560 128v24" stroke-dasharray="4 3"></path>
-              <text class="dgm-label-sm" x="472" y="232" text-anchor="middle">Focus falls short — the retina gets a blur</text>
+              <text class="dgm-label-sm" x="472" y="232" text-anchor="middle">Focus falls before the retina</text>
             </svg>
           </div>
-          <p class="meta">Same eye, same lens power. The only thing that changed is length.</p>
-          <div class="frame ratio-wide">
-            <div class="fi">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 15h10M7 11h6"/></svg>
-              <p class="frame-label">Optional: prescription or biometry photo</p>
-              <p class="frame-hint">A real (anonymised) axial-length printout makes this concrete. 1200 × 675 px.</p>
-            </div>
+          <p class="meta">The drawing isolates the common axial form of myopia. Real eyes also differ in corneal and lens power.</p>
+          <div class="diagram">
+            <svg viewBox="0 0 640 330" role="img" aria-label="Guide to the measurements on a childhood myopia report: axial length in millimetres, refraction in diopters, and change over time">
+              <text class="dgm-cap" x="28" y="34">How to read a myopia follow-up report</text>
+              <rect x="28" y="58" width="176" height="208" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+              <rect x="232" y="58" width="176" height="208" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+              <rect x="436" y="58" width="176" height="208" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+              <text class="dgm-cap" x="48" y="92">Axial length</text>
+              <text class="dgm-label" x="48" y="127">millimetres</text>
+              <path class="dgm-accent" d="M52 164h128M52 154v20M180 154v20"/>
+              <text class="dgm-label-sm" x="48" y="205">Front of eye to retina</text>
+              <text class="dgm-label-sm" x="48" y="228">Track each eye separately</text>
+              <text class="dgm-cap" x="252" y="92">Refraction</text>
+              <text class="dgm-label" x="252" y="127">diopters (D)</text>
+              <text x="252" y="177" style="font:600 38px var(--font-display);fill:var(--accent-deep)">−</text>
+              <text class="dgm-label-sm" x="252" y="205">Optical focusing error</text>
+              <text class="dgm-label-sm" x="252" y="228">More minus = more myopic</text>
+              <text class="dgm-cap" x="456" y="92">Trend</text>
+              <text class="dgm-label" x="456" y="127">change over time</text>
+              <path d="M460 210l38-22 34 7 48-54" fill="none" stroke="var(--accent)" stroke-width="4"/>
+              <circle cx="460" cy="210" r="4" fill="var(--accent)"/><circle cx="498" cy="188" r="4" fill="var(--accent)"/><circle cx="532" cy="195" r="4" fill="var(--accent)"/><circle cx="580" cy="141" r="4" fill="var(--accent)"/>
+              <text class="dgm-label-sm" x="456" y="228">The pattern matters most</text>
+              <text class="dgm-label-sm" x="28" y="304">Educational guide — not a patient record and not a diagnostic cutoff.</text>
+            </svg>
           </div>
+          <p class="meta">A useful report keeps the right and left eye separate and compares measurements made with the same method over time.</p>
         </div>
+      </div>
+      <div class="prose" style="max-width:none; margin-top:30px">
+        <h3>Sources and further reading</h3>
+        <p class="meta"><a href="https://www.nei.nih.gov/eye-health-information/eye-conditions-and-diseases/nearsightedness-myopia" rel="noopener" target="_blank">National Eye Institute — Nearsightedness</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6735818/" rel="noopener" target="_blank">International Myopia Institute — definitions and classification</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9132855/" rel="noopener" target="_blank">DREAM Study — childhood progression to adult age</a> · <a href="https://doi.org/10.1016/j.preteyeres.2012.06.004" rel="noopener" target="_blank">Flitcroft — refractive error and ocular-disease risk</a></p>
       </div>
     </div>
   </div>
@@ -1020,46 +1045,77 @@ a.card:hover h3{color:var(--accent-deep)}
       <div class="part-head">
         <span class="num">Chapter 03</span>
         <h2>Contributing Factors</h2>
-        <p class="lede">Myopia runs in families, but family history alone cannot explain a change this fast in a single generation. Environment does much of the rest.</p>
+        <p class="lede">Myopia develops through an interaction between inherited susceptibility, eye growth and a child's visual environment. A risk factor changes probability; it does not guarantee an outcome.</p>
       </div>
       <div class="grid g2">
         <div class="card">
-          <span class="tag">Strong evidence</span>
-          <h3>Time outdoors — or the lack of it</h3>
-          <p class="draft">[The most consistent protective factor in the literature. Explain the light-intensity idea: outdoor light is 10–100× brighter than indoor lighting, and bright light appears to slow eye elongation, possibly through dopamine release in the retina. Cite the Guangzhou and Taiwan school trials.]</p>
+          <span class="tag">Strongest modifiable evidence</span>
+          <h3>Less time outdoors</h3>
+          <p>Time outdoors is the clearest modifiable factor for delaying the onset of childhood myopia. In a Guangzhou cluster-randomized trial, adding 40 minutes outdoors to each school day reduced three-year myopia incidence from 39.5% to 30.4%. In a Taiwan school comparison, outdoor recess reduced one-year onset from 17.65% to 8.41%. Outdoor light is far brighter than typical indoor light; researchers think retinal light signaling, possibly involving dopamine, helps regulate eye growth, but the exact human mechanism is not settled.</p>
         </div>
         <div class="card">
-          <span class="tag">Strong evidence</span>
-          <h3>Sustained near work</h3>
-          <p class="draft">[Long unbroken periods of reading, homework or screens at close distance. Distance and duration seem to matter more than the device itself. Note what is still debated.]</p>
+          <span class="tag">Associated; causality less certain</span>
+          <h3>Sustained, close near work</h3>
+          <p>Reading, homework, drawing and screens are all near work when done at close range. A 2015 meta-analysis found a modest association between more near work and myopia, but the longitudinal evidence was inconsistent and the studies measured near work in different ways. The device is not the whole story: viewing distance, uninterrupted duration and how much time near work replaces outdoors may all matter. Screens can also cause temporary eye strain or dryness without causing permanent eye damage.</p>
         </div>
         <div class="card">
-          <span class="tag tag-plain">Contributing</span>
+          <span class="tag tag-plain">Inherited and shared environment</span>
           <h3>Family history</h3>
-          <p class="draft">[Risk rises with one myopic parent and rises further with two. Genetics sets the slope; environment decides how far along it a child travels.]</p>
+          <p>A child with myopic parents is more likely to become myopic, reflecting both many genetic variants and aspects of family environment. In the U.S. CLEERE cohort, the odds of future myopia were 2.17 times higher with one myopic parent and 5.40 times higher with two, compared with no myopic parents. Those figures describe that cohort, not an individual destiny; outdoor time remained relevant even in higher-risk families.</p>
         </div>
         <div class="card">
-          <span class="tag tag-plain">Contributing</span>
-          <h3>Early onset age</h3>
-          <p class="draft">[The younger a child becomes myopic, the more years of progression ahead of them — which is why onset age predicts final prescription better than the first prescription does.]</p>
+          <span class="tag tag-plain">Progression marker</span>
+          <h3>Earlier onset</h3>
+          <p>The younger a child is when myopia starts, the longer the eye may have to keep growing. In the Dutch DREAM cohort, children first prescribed −0.50 to −1.50 D before age 10 had a 32.6% observed risk of high myopia by age 25, compared with 3.0% when that same prescription range first appeared at ages 10–12. These cohort-specific numbers show why early detection matters; they are not a calculator for every child.</p>
         </div>
         <div class="card">
-          <span class="tag tag-plain">Contributing</span>
-          <h3>Sleep, lighting and study load</h3>
-          <p class="draft">[Shorter sleep, dim study lighting and heavy academic schedules all appear in the research, with weaker or mixed evidence. Say so plainly — the honesty is the point.]</p>
+          <span class="tag tag-plain">Evidence varies</span>
+          <h3>Education, sleep and lighting</h3>
+          <p>More years of education and intense educational pressure are consistently associated with myopia at a population level. Sleep timing, sleep duration and indoor lighting have also been studied, but results are weaker or mixed. The International Myopia Institute found associations with later bedtime in some studies, while sleep duration was not consistently important. Good lighting improves comfort and makes a sensible study setup, but dim light alone has not been shown to permanently damage the eye.</p>
         </div>
         <div class="card">
-          <span class="tag tag-plain">Myth</span>
-          <h3>What does <em>not</em> cause myopia</h3>
-          <p class="draft">[Reading in the dark, sitting close to the television, carrots, and eye exercises marketed as cures. Correct these directly — parents hear them constantly.]</p>
+          <span class="tag tag-plain">Myth check</span>
+          <h3>What does <em>not</em> explain myopia</h3>
+          <p>Reading in dim light can make eyes feel tired, but it is not known to injure them. Sitting close to a television does not by itself damage the eyes — sometimes it is a clue that distance vision is already blurred. Carrots support normal vision when they supply needed vitamin A, but they do not reverse an elongated eye. Eye exercises can treat certain eye-coordination problems; scientific evidence does not show that they slow myopia progression or remove the need for glasses.</p>
         </div>
       </div>
-      <div class="frame ratio-wide" style="margin-top:30px; max-width:900px">
-        <div class="fi">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19V8m5 11V5m5 14v-8m5 8V9"/></svg>
-          <p class="frame-label">Optional chart</p>
-          <p class="frame-hint">A simple bar or line chart — myopia prevalence by country, or by hours spent outdoors. 1400 × 790 px.</p>
-        </div>
+      <div class="diagram" style="margin-top:30px; max-width:900px">
+        <svg viewBox="0 0 900 430" role="img" aria-label="Bar chart comparing new myopia in school outdoor programs with control groups in Guangzhou and Taiwan">
+          <text x="34" y="38" style="font:600 21px var(--font-display);fill:var(--ink)">New myopia after school outdoor programs</text>
+          <text x="34" y="64" style="font:13px var(--font-body);fill:var(--ink-3)">Percent of children without myopia at baseline who developed myopia during follow-up</text>
+          <line x1="92" y1="330" x2="840" y2="330" stroke="var(--line)"/>
+          <line x1="92" y1="270" x2="840" y2="270" stroke="var(--line-soft)"/>
+          <line x1="92" y1="210" x2="840" y2="210" stroke="var(--line-soft)"/>
+          <line x1="92" y1="150" x2="840" y2="150" stroke="var(--line-soft)"/>
+          <line x1="92" y1="90" x2="840" y2="90" stroke="var(--line-soft)"/>
+          <text x="66" y="334" style="font:12px var(--font-body);fill:var(--ink-3)">0</text>
+          <text x="58" y="274" style="font:12px var(--font-body);fill:var(--ink-3)">10</text>
+          <text x="58" y="214" style="font:12px var(--font-body);fill:var(--ink-3)">20</text>
+          <text x="58" y="154" style="font:12px var(--font-body);fill:var(--ink-3)">30</text>
+          <text x="58" y="94" style="font:12px var(--font-body);fill:var(--ink-3)">40%</text>
+          <rect x="176" y="93" width="74" height="237" rx="4" fill="var(--ground-3)"/>
+          <rect x="266" y="148" width="74" height="182" rx="4" fill="var(--accent)"/>
+          <text x="213" y="84" text-anchor="middle" style="font:600 14px var(--font-body);fill:var(--ink)">39.5%</text>
+          <text x="303" y="139" text-anchor="middle" style="font:600 14px var(--font-body);fill:var(--ink)">30.4%</text>
+          <text x="258" y="359" text-anchor="middle" style="font:600 14px var(--font-body);fill:var(--ink)">Guangzhou</text>
+          <text x="258" y="380" text-anchor="middle" style="font:12px var(--font-body);fill:var(--ink-3)">3 years · +40 min outdoors each school day</text>
+          <rect x="530" y="224" width="74" height="106" rx="4" fill="var(--ground-3)"/>
+          <rect x="620" y="280" width="74" height="50" rx="4" fill="var(--accent)"/>
+          <text x="567" y="215" text-anchor="middle" style="font:600 14px var(--font-body);fill:var(--ink)">17.65%</text>
+          <text x="657" y="271" text-anchor="middle" style="font:600 14px var(--font-body);fill:var(--ink)">8.41%</text>
+          <text x="612" y="359" text-anchor="middle" style="font:600 14px var(--font-body);fill:var(--ink)">Taiwan</text>
+          <text x="612" y="380" text-anchor="middle" style="font:12px var(--font-body);fill:var(--ink-3)">1 year · recess outside the classroom</text>
+          <rect x="596" y="26" width="16" height="16" rx="2" fill="var(--ground-3)"/>
+          <text x="620" y="39" style="font:12px var(--font-body);fill:var(--ink-2)">Control</text>
+          <rect x="696" y="26" width="16" height="16" rx="2" fill="var(--accent)"/>
+          <text x="720" y="39" style="font:12px var(--font-body);fill:var(--ink-2)">Outdoor program</text>
+          <text x="34" y="416" style="font:12px var(--font-body);fill:var(--ink-3)">Trials differed in design and follow-up, so compare each program only with its own control group.</text>
+        </svg>
+      </div>
+      <p class="meta" style="margin-top:12px; max-width:900px">Original chart made from published trial data: He et al., <em>JAMA</em> (2015), and Wu et al., <em>Ophthalmology</em> (2013). Percentages show new-onset myopia, not change in an existing prescription.</p>
+      <div class="prose" style="max-width:none; margin-top:30px">
+        <h3>Sources and further reading</h3>
+        <p class="meta"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8083079/" rel="noopener" target="_blank">International Myopia Institute — risk factors</a> · <a href="https://jamanetwork.com/journals/jama/fullarticle/2441261" rel="noopener" target="_blank">He et al. — Guangzhou outdoor-time trial</a> · <a href="https://doi.org/10.1016/j.ophtha.2012.11.009" rel="noopener" target="_blank">Wu et al. — Taiwan outdoor-recess study</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4618477/" rel="noopener" target="_blank">Huang et al. — near-work meta-analysis</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2871403/" rel="noopener" target="_blank">Jones et al. — parental history and outdoor activity</a> · <a href="https://www.nei.nih.gov/sites/default/files/2019-06/NEI_Healthy-Vision_booklet_WEB_508%20%281%29.pdf" rel="noopener" target="_blank">National Eye Institute — vision myths and facts</a> · <a href="https://engage.aapos.org/glossary/vision-therapy" rel="noopener" target="_blank">AAPOS — vision therapy and myopia</a></p>
       </div>
     </div>
   </div>
